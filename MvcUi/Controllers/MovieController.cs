@@ -21,14 +21,21 @@ namespace MvcUi.Controllers
         // GET: Movie
         public ActionResult Index()
         {
-            return View("Page2");
+            return View(List5());
         }
-        [Authorize]
-        public ActionResult List5()
+        //post должно ли это делаться асинхронно через аjax
+        [HttpPost]
+        public ActionResult Index(string name) {
+            var resList = manager.GetMovies(name);
+            var resModel = builder.GetVMList(resList);
+            return View(resModel);
+        }
+        
+        private IEnumerable<MovieModel>  List5()
         {
             IEnumerable<Movie> resultList = manager.GetMovies(5);
             IEnumerable<MovieModel> resultListModels = builder.GetVMList(resultList);
-            return View(resultListModels);
+            return resultListModels;
         }
         // GET: Movie/Details/5
         public ActionResult Details(int id)

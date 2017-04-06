@@ -30,6 +30,7 @@ namespace MvcUi.Infrastructure
         }
         private void AddBindings()
         {
+            //правильно ли в формате UnitOfWork делать inject как сингл обьект? 
             kernel.Bind<ICinemaWork>().To<UnitOfWork>().InSingletonScope();
             kernel.Bind<IAccountManager>().To<AccountManager>();
             kernel.Bind<IEmailService>().To<MyEmailSender>();

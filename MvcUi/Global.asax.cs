@@ -20,10 +20,10 @@ namespace MvcUi
         private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
         protected void Application_Start()
         {
+            //как лучше логировать и какие изменения должын логинится насколько подробно?
             logger.Info("Application Start");
 
             ControllerBuilder.Current.SetControllerFactory(new NinjectControllerFactory());
-       
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);

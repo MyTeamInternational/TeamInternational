@@ -62,6 +62,7 @@ namespace MvcUi.Controllers
                     user = accountManager.CreateUser(model.Email, model.Password);
                     if (user != null)
                     {
+                        //передаю в модуль отправления писем сгенерированную ссылку
                         string s = string.Format("Для завершения регистрации перейдите по ссылке:" +
                                                       "<a href=\"{0}\" title=\"Подтвердить регистрацию\">{0}</a>",
                                           Url.Action("ConfirmEmail", "Account", new { Token = user.ID, Email = user.Email }, Request.Url.Scheme));
@@ -104,9 +105,9 @@ namespace MvcUi.Controllers
             }
                 return View();
         }
-
         public ActionResult ConfirmEmail(string Token, string Email)
         {
+           // можно ли при подтверждении мыла не шифровать токены если надо то каким шифром RCA, цезаря
             User user = accountManager.GetUser(int.Parse(Token));
             if (user != null)
             {
@@ -129,6 +130,5 @@ namespace MvcUi.Controllers
                 return RedirectToAction("Confirm", "Account", new { Email = "" });
             }
         }
-
     }
 }

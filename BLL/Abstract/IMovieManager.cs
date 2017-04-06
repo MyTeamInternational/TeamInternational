@@ -6,5 +6,6 @@ namespace BLL.Abstract
     public interface IMovieManager
     {
         IEnumerable<Movie> GetMovies(int v);
+        IEnumerable<Movie> GetMovies(string name);
     }
 }
