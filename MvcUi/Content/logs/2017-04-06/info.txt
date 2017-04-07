@@ -22,3 +22,6 @@
 2017-04-06 17:42:26.3691|INFO|MvcUi.MvcApplication|Application Start
 2017-04-06 17:42:30.0259|INFO|MvcUi.MvcApplication|Application Init
 2017-04-06 17:42:30.1221|INFO|MvcUi.MvcApplication|Application Init
+2017-04-06 18:25:14.6655|INFO|MvcUi.MvcApplication|Application Dispose
+2017-04-06 18:25:14.7593|INFO|MvcUi.MvcApplication|Application End
+2017-04-06 18:25:14.7749|INFO|MvcUi.MvcApplication|Application Dispose

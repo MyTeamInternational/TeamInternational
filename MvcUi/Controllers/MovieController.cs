@@ -19,7 +19,7 @@ namespace MvcUi.Controllers
             this.builder = builder;
         }
         // GET: Movie
-        public ActionResult Index()
+         public ActionResult Index()
         {
             return View(List5());
         }
