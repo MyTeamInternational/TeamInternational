@@ -18,27 +18,17 @@ namespace BLL.Managers.Tests
         [TestMethod()]
         public void CreateUserCutNameTest()
         {
+            //bad test!
             // User u = new User { ID = 1 };.Create(new User())
             fakeWork.Setup(m => m.Users.Items).Returns(new List<User> { new User() }.AsQueryable());
             fakeWork.Setup(m => m.Save());
             AccountManager manager = new AccountManager(fakeWork.Object);
             User resUser = manager.CreateUser("paulux@mail.ru", "testpwd");
             var name = resUser.Name;
-            CheckFiedls(resUser);
+         //   CheckFiedls(resUser);
             Assert.AreEqual("paulux", name);
             //Assert.AreEqual(2,fakeWork.Object.Users.Items.Count());
         }
-        private void CheckFiedls(User resUser)
-        {
-            //можно както рефлексивно пройтись по всем полям 
-            //no
-            Assert.IsNotNull(resUser);
-            Assert.IsNotNull(resUser.ID);
-            Assert.IsNotNull(resUser.Email);
-            Assert.IsNotNull(resUser.ConfirmedEmail);
-            Assert.IsNotNull(resUser.Password);
-        }
-
         [TestMethod()]
         public void GetUserEmailAndNameBoth()
         {

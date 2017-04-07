@@ -41,40 +41,40 @@ namespace BLL.Managers.Tests
             var res = manager.GetMovies(5);
             Assert.AreEqual(0, res.Count());
         }
-        [TestMethod()]
-        public void TryToRegexp()
-        {
-            fakeWork.Setup(m => m.Movies.Items).Returns(new List<Movie> { new Movie { Name = "Abrio" }, new Movie { Name = "Baria" } }.AsQueryable());
-            MovieManager manager = new MovieManager(fakeWork.Object);
-            string target = "Abrio Baria Agaas";
-            string name = "(a\\w+(^\\s)*)";
-            Regex regex = new Regex(name, RegexOptions.IgnoreCase);
-            MatchCollection matches = regex.Matches(target);
-            if (matches.Count > 0)
-            {
-                foreach (System.Text.RegularExpressions.Match match in matches)
-                    Console.WriteLine(match.Value);
-            }
-            else
-            {
-                Console.WriteLine("Совпадений не найдено");
-            }
-            target = "Baria";
-            matches = regex.Matches(target);
-            if (matches.Count > 0)
-            {
-                foreach (System.Text.RegularExpressions.Match match in matches)
-                    Console.WriteLine(match.Value);
-            }
-            else
-            {
-                Console.WriteLine("Совпадений не найдено");
-            }
+        //[TestMethod()]
+        //public void TryToRegexp()
+        //{
+        //    fakeWork.Setup(m => m.Movies.Items).Returns(new List<Movie> { new Movie { Name = "Abrio" }, new Movie { Name = "Baria" } }.AsQueryable());
+        //    MovieManager manager = new MovieManager(fakeWork.Object);
+        //    string target = "Abrio Baria Agaas";
+        //    string name = "(a\\w+(^\\s)*)";
+        //    Regex regex = new Regex(name, RegexOptions.IgnoreCase);
+        //    MatchCollection matches = regex.Matches(target);
+        //    if (matches.Count > 0)
+        //    {
+        //        foreach (System.Text.RegularExpressions.Match match in matches)
+        //            Console.WriteLine(match.Value);
+        //    }
+        //    else
+        //    {
+        //        Console.WriteLine("Совпадений не найдено");
+        //    }
+        //    target = "Baria";
+        //    matches = regex.Matches(target);
+        //    if (matches.Count > 0)
+        //    {
+        //        foreach (System.Text.RegularExpressions.Match match in matches)
+        //            Console.WriteLine(match.Value);
+        //    }
+        //    else
+        //    {
+        //        Console.WriteLine("Совпадений не найдено");
+        //    }
 
-            var res = manager.GetMovies(name);
+        //    var res = manager.GetMovies(name);
 
-            //Assert.AreEqual(0, res);
-        }
+        //    //Assert.AreEqual(0, res);
+        //}
         [TestMethod()]
         public void GetMoviesRegExpxLetter()
         {
