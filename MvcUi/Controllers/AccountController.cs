@@ -5,11 +5,12 @@ using Ninject;
 using System.Web.Mvc;
 using System.Web.Security;
 using TeamProject.DAL.Entities;
+using System;
 
 namespace MvcUi.Controllers
 {
     [CustomErrorHandler]//:TODO куда его лучше положить?
-    public class AccountController : Controller
+    public class AccountController : Controller,IUrlFlow
     {
         [Inject]
         private IAccountManager accountManager;
@@ -17,10 +18,8 @@ namespace MvcUi.Controllers
         {
             this.accountManager = accountManager;
         }
-        public ActionResult Login()
-        {
-            return View();
-        }
+        
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Login(LoginModel model)
@@ -34,7 +33,7 @@ namespace MvcUi.Controllers
                     if (user.ConfirmedEmail)
                     {
                         FormsAuthentication.SetAuthCookie(model.Name, true);
-                        return RedirectToAction("Index", "Home");//TODO вопрос а что если нужно эти названия хранить в отдельном класе перечисления?
+                        return RedirectToAction(CONSTANTS.HOME_INDEX, CONSTANTS.HOME);//TODO вопрос а что если нужно эти названия хранить в отдельном класе перечисления?
                     }
                     else
                         ModelState.AddModelError("", "Не подтвержден Email");
@@ -44,8 +43,9 @@ namespace MvcUi.Controllers
                     ModelState.AddModelError("", "Пользователя с таким логином и паролем нет");// как это переделывать под мультиязичный сайт
                 }
             }
-            return View(model);
+            return View("/Views/"+CONSTANTS.HOME+"/"+CONSTANTS.HOME_INDEX+".cshtml", new Page1Model { LoginUser = model, isAutorized = false });
         }
+        [UrlAction]
         public ActionResult Register()
         {
             return View();
@@ -86,28 +86,31 @@ namespace MvcUi.Controllers
                 return View(model);
             }
         }
+
         public ViewResult Confirm(string Email)
         {
             TempData["messageEmail"] = "На почтовый адрес " + Email + " Вам высланы дальнейшие" +
                     "инструкции по завершению регистрации";
             return View();
         }
-        [Authorize]
+        [UrlAction]
         public ActionResult LogOut()
         {
             FormsAuthentication.SignOut();
             return RedirectToAction("Page1", "Home");
         }
-        public ActionResult UserName() {
+        [UrlAction]
+        public ActionResult UserName()
+        {
             if (User.Identity.IsAuthenticated)
             {
                 return View(User);
             }
-                return View();
+            return View();
         }
         public ActionResult ConfirmEmail(string Token, string Email)
         {
-           // можно ли при подтверждении мыла не шифровать токены если надо то каким шифром RCA, цезаря
+            // можно ли при подтверждении мыла не шифровать токены если надо то каким шифром RCA, цезаря
             User user = accountManager.GetUser(int.Parse(Token));
             if (user != null)
             {
@@ -129,6 +132,12 @@ namespace MvcUi.Controllers
             {
                 return RedirectToAction("Confirm", "Account", new { Email = "" });
             }
+        }
+
+        public bool CanGo(string action)
+        {
+            //  return accountFlow.CanUseAction[action];
+            return false;
         }
     }
 }

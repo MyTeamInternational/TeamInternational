@@ -7,6 +7,8 @@
         public Page1Model() {
             isAutorized = false;
             UserName = null;
+            LoginUser = new LoginModel { Name = "", Password = "" };
         }
+        public LoginModel LoginUser { get; set; }
     }
 }

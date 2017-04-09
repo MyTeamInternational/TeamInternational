@@ -18,6 +18,6 @@
 @if (!Model.isAutorized)
 {
     <div class="login">
-        @{Html.RenderAction("Login", "Account");}
+        @{Html.RenderPartial("Account/Login",Model.LoginUser);}
     </div>
 }
