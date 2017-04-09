@@ -2,5 +2,5 @@
 @Model.Identity.Name
 @if (Model.Identity.IsAuthenticated)
 {
-    @Html.ActionLink("Выйти", "LogOut", "Account")
+    @Html.ActionLink("Выйти", "LogOut", "Account",new { link=true},null)
 }

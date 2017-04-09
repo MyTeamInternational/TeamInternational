@@ -62,7 +62,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Abstract\IAccountManager.cs" />
-    <Compile Include="Abstract\IAccountUrlFlow.cs" />
+    <Compile Include="Abstract\IHomeUrlFlow.cs" />
     <Compile Include="Abstract\IEmailService.cs" />
     <Compile Include="Abstract\IMovieVMBuilder.cs" />
     <Compile Include="Abstract\IMovieManager.cs" />
@@ -70,7 +70,7 @@
     <Compile Include="Managers\MovieManager.cs" />
     <Compile Include="Managers\MyEmailSender.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UrlFlow\AccountUrlFlow.cs" />
+    <Compile Include="UrlFlow\HomeUrlFlow.cs" />
     <Compile Include="ViewModels\Account\LoginModel.cs" />
     <Compile Include="ViewModels\Account\Page1Model.cs" />
     <Compile Include="ViewModels\Account\RegisterModel.cs" />

@@ -14,8 +14,8 @@ namespace MvcUi
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
             routes.MapRoute(name: "",
-                url: "{controller}/{action}/{id}/{*catchall}",
-                defaults: new { controller = "Home", action = "Page1", id = UrlParameter.Optional }
+                url: "{controller}/{action}/{link}",
+                defaults: new { controller = CONSTANTS.HOME_CONTROLLER, action = CONSTANTS.HOME_INDEX, link = UrlParameter.Optional }
             );
         }
     }

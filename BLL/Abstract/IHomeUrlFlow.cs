@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BLL.Abstract
 {
-    public interface IAccountUrlFlow
+    public interface IHomeUrlFlow
     {
          IDictionary<string,bool> CanUseAction { get; set; }
     }

@@ -6,7 +6,7 @@ namespace MvcUi.Infrastructure
     internal class CustomErrorHandlerAttribute : HandleErrorAttribute
     {
         public override void OnException(ExceptionContext filterContext)
-        {
+            {
             filterContext.ExceptionHandled = true;
 
             if (filterContext.HttpContext.Request.IsAjaxRequest())

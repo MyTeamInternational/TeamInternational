@@ -15,9 +15,7 @@
         @TempData["messageEmail"]
     </div>
 }
-@if (!Model.isAutorized)
-{
+
     <div class="login">
         @{Html.RenderPartial("Account/Login",Model.LoginUser);}
     </div>
-}

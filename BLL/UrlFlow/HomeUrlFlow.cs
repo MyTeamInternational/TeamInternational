@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BLL.UrlFlow
 {
-    public class AccountUrlFlow : IAccountUrlFlow
+    public class HomeUrlFlow : IHomeUrlFlow
     {
         private IDictionary<string, bool> canUseAction;
         public IDictionary<string, bool> CanUseAction
@@ -22,7 +22,7 @@ namespace BLL.UrlFlow
                 canUseAction = value;
             }
         }
-        public AccountUrlFlow() {
+        public HomeUrlFlow() {
             canUseAction = new Dictionary<string, bool>();  
         }
     }

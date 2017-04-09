@@ -1,6 +1,9 @@
-﻿using BLL.ViewModels.Account;
+﻿using BLL.Abstract;
+using BLL.ViewModels.Account;
 using MvcUi.Infrastructure;
+using Ninject;
 using System.Web.Mvc;
+using System.Linq;
 
 //1)demo class diagramm 
 //presentation pps video
@@ -22,24 +25,47 @@ namespace MvcUi.Controllers
 {
     [CustomErrorHandler]
     // как релизовать постоянный редирект на Page1 при остальных страницах нужен свой фильтр?
-    public class HomeController : Controller
+    public class HomeController : Controller, IUrlFlow
     {
+        [Inject]
+        private IHomeUrlFlow urlFlow;
 
-        public ActionResult Page1() {
-            Page1Model model = new Page1Model { isAutorized = false, UserName = null };
+        public HomeController(IHomeUrlFlow flow)
+        {
+            flow.CanUseAction.Add(CONSTANTS.HOME_INDEX, true);
+            flow.CanUseAction.Add(CONSTANTS.HOME_PAGE2, false);
+            this.urlFlow = flow;
+        }
+        public bool CanGo(string action)
+        {
             if (User.Identity.IsAuthenticated)
             {
-                model.UserName = User.Identity.Name;
-                model.isAutorized = true;
+                urlFlow.CanUseAction[CONSTANTS.HOME_INDEX] = false;
+                urlFlow.CanUseAction[CONSTANTS.HOME_PAGE2] = true;
+
             }
-            return View(model);
+            return urlFlow.CanUseAction[action];
         }
-        
-        public ActionResult Page2() {
-            return RedirectToAction("Movie","List");
+
+        public ActionResult GetRedirect()
+        {
+            string buffer = "/" + CONSTANTS.HOME_CONTROLLER + "/" + urlFlow.CanUseAction.FirstOrDefault((v) => v.Value == true).Key;
+            RedirectResult redirect = new RedirectResult(buffer);
+            return redirect;
+        }
+
+        [UrlAction]
+        public ActionResult Page1()
+        {
+            return View(new Page1Model { LoginUser = new LoginModel { } });
+        }
+        [UrlAction]
+        public ActionResult Page2()
+        {
+            return RedirectToAction(CONSTANTS.MOVIE_INDEX, CONSTANTS.MOVIE_CONTROLLER);
         }
 
     }
 
-   
+
 }
