@@ -24,34 +24,27 @@ using System.Linq;
 namespace MvcUi.Controllers
 {
     [CustomErrorHandler]
-    // как релизовать постоянный редирект на Page1 при остальных страницах нужен свой фильтр?
     public class HomeController : Controller, IUrlFlow
     {
         [Inject]
-        private IHomeUrlFlow urlFlow;
+        private static IHomeUrlFlow urlFlow;
+
+        public static IHomeUrlFlow FLow { get { return HomeController.urlFlow; } }
 
         public HomeController(IHomeUrlFlow flow)
         {
             flow.CanUseAction.Add(CONSTANTS.HOME_INDEX, true);
             flow.CanUseAction.Add(CONSTANTS.HOME_PAGE2, false);
-            this.urlFlow = flow;
+            urlFlow = flow;
         }
         public bool CanGo(string action)
         {
-            if (User.Identity.IsAuthenticated)
-            {
-                urlFlow.CanUseAction[CONSTANTS.HOME_INDEX] = false;
-                urlFlow.CanUseAction[CONSTANTS.HOME_PAGE2] = true;
-
-            }
-            return urlFlow.CanUseAction[action];
+            return urlFlow.CanGo(action, User.Identity.IsAuthenticated);
         }
 
         public ActionResult GetRedirect()
         {
-            string buffer = "/" + CONSTANTS.HOME_CONTROLLER + "/" + urlFlow.CanUseAction.FirstOrDefault((v) => v.Value == true).Key;
-            RedirectResult redirect = new RedirectResult(buffer);
-            return redirect;
+             return new RedirectResult(urlFlow.GetRedirect());
         }
 
         [UrlAction]

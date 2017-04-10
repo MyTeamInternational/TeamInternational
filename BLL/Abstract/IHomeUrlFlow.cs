@@ -9,5 +9,7 @@ namespace BLL.Abstract
     public interface IHomeUrlFlow
     {
          IDictionary<string,bool> CanUseAction { get; set; }
+        string GetRedirect();
+        bool CanGo(string action,bool can);
     }
 }

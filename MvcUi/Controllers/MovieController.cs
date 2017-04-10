@@ -5,10 +5,11 @@ using Ninject;
 using System.Collections.Generic;
 using System.Web.Mvc;
 using TeamProject.DAL.Entities;
+using System;
 
 namespace MvcUi.Controllers
 {
-    public class MovieController : Controller
+    public class MovieController : Controller, IUrlFlow
     {
         [Inject]
         IMovieManager manager;
@@ -20,24 +21,30 @@ namespace MvcUi.Controllers
             this.builder = builder;
         }
         // GET: Movie
-        [UrlAction]
-         public ActionResult Page2()
+        public ActionResult Page2(string name = "")
         {
-            return View(List5());
+            return View((object)name);
         }
-        //post должно ли это делаться асинхронно через аjax
-        [HttpPost]
-        public ActionResult Page2(string name) {
-            var resList = manager.GetMovies(name);
+        public PartialViewResult Page2Data(string name = "")
+        {
+            IEnumerable<Movie> resList = manager.GetMovies(5);
+            if (name != "")
+            {
+                resList = manager.GetMovies(name);
+            }
             var resModel = builder.GetVMList(resList);
-            return View(resModel);
+            return PartialView(resModel);
         }
-        
-        private IEnumerable<MovieModel>  List5()
+
+
+        public bool CanGo(string action)
         {
-            IEnumerable<Movie> resultList = manager.GetMovies(5);
-            IEnumerable<MovieModel> resultListModels = builder.GetVMList(resultList);
-            return resultListModels;
+            return HomeController.FLow.CanGo(action, User.Identity.IsAuthenticated);
+        }
+
+        public ActionResult GetRedirect()
+        {
+            return new RedirectResult(HomeController.FLow.GetRedirect());
         }
     }
 }

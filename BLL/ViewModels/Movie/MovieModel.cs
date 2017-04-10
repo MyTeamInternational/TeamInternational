@@ -5,9 +5,10 @@ namespace BLL.ViewModels.Movie
 {
     public class MovieModel
     {
-
         public string Name { get; set; }
-
+        public MovieModel()
+        {
+        }
         public ICollection<View> Views { get; set; }
     }
 }

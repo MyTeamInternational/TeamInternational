@@ -1,0 +1,11 @@
+﻿@using BLL.ViewModels.Movie
+@model IEnumerable<MovieModel>
+
+@foreach (MovieModel item in Model)
+{
+    <tr>
+        <td class="item">
+                @item.Name
+        </td>
+    </tr>
+}

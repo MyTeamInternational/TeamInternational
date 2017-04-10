@@ -1,16 +1,27 @@
-﻿@model IEnumerable<BLL.ViewModels.Movie.MovieModel>
+﻿@model string
 @{
     ViewBag.Title = "Page2";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    AjaxOptions ajax = new AjaxOptions
+    {
+        UpdateTargetId = "tableBody"
+        ,Url=Url.Action("Page2Data")
+    };
 }
 
 <h2>Page2</h2>
 @*ajax form is needed!*@
-
 <h2>5 Movies:</h2>
-<div class="movies5">
-    @{Html.RenderPartial("List5", Model);}
-</div>
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+         </tr>
+    </thead>
+    <tbody class="movies5" id="tableBody">
+        @Html.Action("Page2Data", new { name = Model })
+    </tbody>
+</table>
 
 @using (Html.BeginForm())
 {

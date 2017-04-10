@@ -16,9 +16,8 @@ namespace BLL.Managers
     {
         [Inject]
         ICinemaWork work;
-        Regex regex;
-        private string RegexPWordsStartOnPrefix= "({0}\\w+(^\\s)*)";
-
+        private string RegexPWordsStartOnPrefix = "({0}\\w+(^\\s)*)";
+        private string RegexPWordStartOnWord = "^{0}\\w+";
         public MovieManager(ICinemaWork work)
         {
             this.work = work;
@@ -28,11 +27,9 @@ namespace BLL.Managers
         {
             return work.Movies.Items.ToList().Where(e => match(e, name));
         }
-
         private bool match(Movie e, string name)
         {
-            Regex regex = new Regex("^" + name + "\\w+", RegexOptions.IgnoreCase);
-            return regex.Match(e.Name).Success;
+            return new Regex(string.Format(RegexPWordStartOnWord,name), RegexOptions.IgnoreCase).Match(e.Name).Success;
 
         }
         public IEnumerable<Movie> GetMovies(int count)

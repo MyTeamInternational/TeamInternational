@@ -233,6 +233,7 @@
     <Content Include="Views\Movie\List5.cshtml" />
     <Content Include="Views\Shared\Movie\MovieSummary.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
+    <Content Include="Views\Movie\Page2Data.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
