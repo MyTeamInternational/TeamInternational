@@ -11,7 +11,7 @@ namespace BLL.VMBuilders
     {
         public IEnumerable<MovieModel> GetVMList(IEnumerable<Movie> resultList)
         {
-            return resultList.Select(e => new MovieModel { Name = e.Name, Views = e.Views });
+            return resultList.Select(e => new MovieModel { Name = e.Name,  });
         }
     }
 }

@@ -72,8 +72,8 @@ namespace BLL.Managers.Tests
         public void GetUserMoreThanOneNameFind()
         {
             fakeWork.Setup(m => m.Users.Items).Returns(new List<User> {
-                new User { ID = 1, Name = "A", Email = "A@mil.ru", Password = "55555" },
-                new User { ID = 4, Name = "A", Email = "A@mibl.ru", Password = "55555" } ,
+                new User { ID = 1, Name = "pauluxxx", Email = "pauluxxx@mail.ru", Password = "55555" },
+                new User { ID = 4, Name = "pauluxxx", Email = "pauluxxx@gmail.com", Password = "555555" } ,
             }.AsQueryable());
             AccountManager manager = new AccountManager(fakeWork.Object);
             User resUser = manager.GetUser("A", "55555");

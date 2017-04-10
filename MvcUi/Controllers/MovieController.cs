@@ -6,7 +6,8 @@ using Ninject;
 using System.Collections.Generic;
 using System.Web.Mvc;
 using TeamProject.DAL.Entities;
-using System;
+using TeamProject.DAL.Repositories;
+using TeamProject.DAL;
 
 namespace MvcUi.Controllers
 {
@@ -16,6 +17,9 @@ namespace MvcUi.Controllers
         IMovieManager manager;
         [Inject]
         IMovieVMBuilder builder;
+
+        CinemaContext db = new CinemaContext();
+
         public MovieController(IMovieManager manager, IMovieVMBuilder builder)
         {
             this.manager = manager;
@@ -25,6 +29,7 @@ namespace MvcUi.Controllers
         public ActionResult Page2(string name = "")
         {
             return View((object)name);
+            //returns the 3rd page Movie, main page for Movie redacting
         }
         public PartialViewResult Page2Data(string name = "")
         {
