@@ -1,5 +1,6 @@
 ﻿using BLL.Abstract;
 using BLL.ViewModels.Movie;
+
 using MvcUi.Infrastructure;
 using Ninject;
 using System.Collections.Generic;
