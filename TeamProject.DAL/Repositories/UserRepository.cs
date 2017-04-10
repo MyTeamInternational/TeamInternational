@@ -13,6 +13,14 @@ namespace TeamProject.DAL.Repositories
     {
         private CinemaContext db;
 
+        public IQueryable<User> Items
+        {
+            get
+            {
+                return db.Users;
+            }
+        }
+
         // Maybe we should create new CinemaContext();
         public UserRepository(CinemaContext db)
         {
@@ -36,7 +44,7 @@ namespace TeamProject.DAL.Repositories
         public User GetByEmail(string mail)
             => db.Users.SingleOrDefault(user => user.Email == mail);
 
-        public User GetByEmailAndPassword(string mail, string password)
-        => db.Users.SingleOrDefault(user=>user.Email==mail&&user.Password==password);
+        public User GetByEmailAndPassword(string input, string password)
+        => db.Users.SingleOrDefault(e=> (e.Name == input || e.Email == input) && e.Password == password);
     }
 }

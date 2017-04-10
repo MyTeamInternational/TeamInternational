@@ -1,4 +1,7 @@
-﻿using MvcUi.Controllers;
+﻿using BLL.Abstract;
+using BLL.Managers;
+using BLL.VMBuilders;
+using MvcUi.Controllers;
 using Ninject;
 using System;
 using System.Web.Mvc;
@@ -28,6 +31,10 @@ namespace MvcUi.Infrastructure
         private void AddBindings()
         {
             kernel.Bind<ICinemaWork>().To<UnitOfWork>().InSingletonScope();
+            kernel.Bind<IAccountManager>().To<AccountManager>();
+            kernel.Bind<IEmailService>().To<MyEmailSender>();
+            kernel.Bind<IMovieManager>().To<MovieManager>();
+            kernel.Bind<IMovieVMBuilder>().To<MovieVMBuilder>();
         }
     }
 }

@@ -1,0 +1,23 @@
+﻿
+@model BLL.ViewModels.Account.Page1Model
+@{
+    ViewBag.Title = "Home Page";
+    Layout = "~/Views/Shared/_EnterLoginLayout.cshtml";
+}
+<div class="row">
+    <div class="col-md-12">
+        <h1>  Greating on Page 1 </h1>
+    </div>
+</div>
+@if (@TempData["messageEmail"] != null)
+{
+    <div class="col-md-12">
+        @TempData["messageEmail"]
+    </div>
+}
+@if (!Model.isAutorized)
+{
+    <div class="login">
+        @{Html.RenderAction("Login", "Account");}
+    </div>
+}

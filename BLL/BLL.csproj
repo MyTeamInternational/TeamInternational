@@ -30,12 +30,29 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DotLiquid, Version=1.6.1.0, Culture=neutral, PublicKeyToken=82e46016ecf9f07c, processorArchitecture=MSIL">
+      <HintPath>..\packages\email.1.1.1\lib\net40\DotLiquid.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="email, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\email.1.1.1\lib\net40\email.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Ninject, Version=3.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
       <HintPath>..\packages\Ninject.3.2.2.0\lib\net45-full\Ninject.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="ServiceStack.Text, Version=3.6.8.20237, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\email.1.1.1\lib\net40\ServiceStack.Text.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Reactive, Version=1.0.10621.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\email.1.1.1\lib\net40\System.Reactive.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -45,8 +62,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Abstract\IAccountManager.cs" />
+    <Compile Include="Abstract\IEmailService.cs" />
+    <Compile Include="Abstract\IMovieVMBuilder.cs" />
+    <Compile Include="Abstract\IMovieManager.cs" />
     <Compile Include="Managers\AccountManager.cs" />
+    <Compile Include="Managers\MovieManager.cs" />
+    <Compile Include="Managers\MyEmailSender.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\Account\LoginModel.cs" />
+    <Compile Include="ViewModels\Account\Page1Model.cs" />
+    <Compile Include="ViewModels\Account\RegisterModel.cs" />
+    <Compile Include="ViewModels\Movie\MovieModel.cs" />
+    <Compile Include="VMBuilders\MovieVMBuilder.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\TeamProject.DAL\DAL.csproj">
@@ -55,6 +82,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

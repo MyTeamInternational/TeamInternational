@@ -1,0 +1,10 @@
+﻿@model IEnumerable<BLL.ViewModels.Movie.MovieModel>
+@{
+    ViewBag.Title = "Movies";
+    Layout = null;
+}
+
+@foreach (var item in Model)
+{
+       Html.RenderPartial("Movie/MovieSummary", item);
+}

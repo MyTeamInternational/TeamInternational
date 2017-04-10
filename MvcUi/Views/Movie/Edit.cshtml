@@ -1,0 +1,18 @@
+﻿@model DAL.Entities.Movie
+@{
+    ViewBag.Title = "Page2";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Page 3</h2>
+<h2>5 Edit the movie. You can change any info </h2>
+@using (Html.BeginForm("Edit", "Movie", FormMethod.Get))
+{
+    <p>Movie name: </p>
+    @Html.TextBox("Name", Model.Name)
+    <p>Age limit:</p>
+    @Html.TextBox("AgeLiit", Model.AgeLimit)
+    <p>Release year:</p>
+    @Html.TextBox("ReleaseYear", Model.ReleaseYear)
+    <p><input type="submit" value="Save" /></p>
+}

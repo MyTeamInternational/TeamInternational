@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
+﻿using System.ComponentModel.DataAnnotations;
+namespace BLL.ViewModels.Account
 
-namespace MvcUi.ViewModels
 {
     public class RegisterModel
     {
@@ -21,6 +17,6 @@ namespace MvcUi.ViewModels
         public string ConfirmPassword { get; set; }
 
 
-       
+
     }
 }

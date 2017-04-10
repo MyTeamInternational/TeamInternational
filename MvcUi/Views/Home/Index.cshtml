@@ -1,22 +1,10 @@
-﻿@model MvcUi.ViewModels.IndexVM
+﻿
 @{
     ViewBag.Title = "Home Page";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
 <div class="row">
-   <div class="col-md-12">
-     <h1>  Greating on Page 1</h1>
-
-   </div>   
-</div>
-@if (!Model.isAutorized)
-{
-    <div class="login">
-        @{Html.RenderAction("Login", "Account");};
+    <div class="col-md-12">
+        <h1>  It will be redirected!</h1>
     </div>
-            }
-            else {
-                @Html.ActionLink("Выйти","LogOut","Account")
-            }
-
+</div>

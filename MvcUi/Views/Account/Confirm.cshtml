@@ -1,0 +1,12 @@
+﻿
+@{
+    ViewBag.Title = "Confirm";
+}
+
+<h2>Confirm</h2>
+@if (TempData["messageEmail"] != null)
+{
+    @TempData["messageEmail"]
+}
+<hr>
+@Html.ActionLink("На главную", "Index","Home")

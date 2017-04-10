@@ -1,0 +1,5 @@
+2017-04-10 07:48:59.2755|INFO|MvcUi.App_Start.PreStartAppDBCreate|Application PreStart
+2017-04-10 07:49:14.7794|INFO|MvcUi.MvcApplication|Application Start
+2017-04-10 07:49:20.2617|INFO|MvcUi.MvcApplication|Application Init
+2017-04-10 07:49:20.4537|INFO|MvcUi.MvcApplication|Application Init
+2017-04-10 07:57:57.1943|INFO|MvcUi.MvcApplication|Application Error

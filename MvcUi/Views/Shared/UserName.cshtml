@@ -1,0 +1,6 @@
+﻿@model System.Security.Principal.GenericPrincipal
+@Model.Identity.Name
+@if (Model.Identity.IsAuthenticated)
+{
+    @Html.ActionLink("Выйти", "LogOut", "Account")
+}

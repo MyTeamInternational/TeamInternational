@@ -8,3 +8,6 @@
 /MvcUi/bin
 /BLL/bin
 /BLL/obj
+/Business.Tests/obj
+/Business.Tests/bin
+/Business.Tests/Properties

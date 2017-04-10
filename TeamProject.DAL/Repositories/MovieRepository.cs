@@ -12,6 +12,11 @@ namespace TeamProject.DAL.Repositories
     public class MovieRepository : IRepository<Movie>
     {
         private CinemaContext db;
+        public IQueryable<Movie> Items
+        {
+            get
+            { return db.Movies; }
+        }
 
         // Maybe we should create new CinemaContext();
         public MovieRepository(CinemaContext db)

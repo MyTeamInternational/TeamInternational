@@ -1,13 +1,6 @@
-﻿using MvcUi.Infrastructure;
-using MvcUi.ViewModels;
-using Ninject;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using BLL.ViewModels.Account;
+using MvcUi.Infrastructure;
 using System.Web.Mvc;
-using TeamProject.DAL.Entities;
-using TeamProject.DAL.Repositories.Interfaces;
 
 namespace MvcUi.Controllers
 {
@@ -16,9 +9,7 @@ namespace MvcUi.Controllers
     {
         public ActionResult Index()
         {
-            IndexVM indexVM = new IndexVM();
-            indexVM.isAutorized = false;
-            indexVM.UserName = null;
+            Page1Model indexVM = new Page1Model { isAutorized=false,UserName=null};
             if (User.Identity.IsAuthenticated)
             {
                 indexVM.UserName = User.Identity.Name;
@@ -28,11 +19,26 @@ namespace MvcUi.Controllers
             return View(indexVM);
             
         }
+        public ActionResult Page1() {
+            Page1Model model = new Page1Model { isAutorized = false, UserName = null };
+            if (User.Identity.IsAuthenticated)
+            {
+                model.UserName = User.Identity.Name;
+                model.isAutorized = true;
+                //  return RedirectToAction("Movie","List");
+            }
+            return View(model);
+        }
+
         [Authorize]
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
             return View();
+        }
+        [Authorize]
+        public ActionResult Page2() {
+            return RedirectToAction("Movie","List");
         }
 
     }

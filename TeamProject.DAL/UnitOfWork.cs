@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TeamProject.DAL.Entities;
 using TeamProject.DAL.Repositories;
+using TeamProject.DAL.Repositories.Interfaces;
 
 namespace TeamProject.DAL
 {
@@ -12,22 +14,22 @@ namespace TeamProject.DAL
     {
         private CinemaContext db;
 
-        private UserRepository userRepository;
-        private MovieRepository movieRepository;
-        private ViewRepository viewRepository;
+        private IRepository<User> userRepository;
+        private IRepository<Movie> movieRepository;
+        private IRepository<View> viewRepository;
 
         public UnitOfWork()
         {
             db = new CinemaContext();
         }
 
-        public UserRepository Users
+        public IRepository<User> Users
             => userRepository ?? (userRepository = new UserRepository(db));
 
-        public MovieRepository Movies
+        public IRepository<Movie> Movies
             => movieRepository ?? (movieRepository = new MovieRepository(db));
 
-        public ViewRepository Views
+        public IRepository<View> Views
             => viewRepository ?? (viewRepository = new ViewRepository(db));
 
         public void Save()

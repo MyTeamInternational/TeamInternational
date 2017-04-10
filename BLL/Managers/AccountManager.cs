@@ -1,12 +1,13 @@
 ﻿using BLL.Abstract;
+
 using Ninject;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Net.Mail;
 using TeamProject.DAL;
 using TeamProject.DAL.Entities;
+using TeamProject.DAL.Repositories;
 
 namespace BLL.Managers
 {
@@ -14,43 +15,52 @@ namespace BLL.Managers
     {
         [Inject]
         ICinemaWork work;
+        [Inject]
+        IEmailService sender;
 
+        public AccountManager(ICinemaWork work, IEmailService sender)
+        {
+            this.work = work;
+            this.sender = sender;
+        }
         public AccountManager(ICinemaWork work)
         {
             this.work = work;
         }
         public User CreateUser(string email, string password)
         {
-            string cutName = email.Trim(new char[] {'@'});
-            User user = new User { Email = email, IsConfirmedEmail = false, Name = cutName, Password = password, Views = null };
+            IEnumerable<char> cutName = email.TakeWhile(e => e != '@');
+            User user = new User { Email = email, ConfirmedEmail = false, Name = new String(cutName.ToList().ToArray()), Password = password, Views = null };
             work.Users.Create(user);
             work.Save();
             return user;
         }
 
-        public User GetUser(string name, string password)
+        public User GetUser(string input, string password)
         {
-            throw new NotImplementedException();
+            if (work.Users.Items.Select(e => (e.Name == input || e.Email == input) && e.Password == password).Count(e => e == true) > 1)
+            {
+                throw new NotSupportedException();//when two equals user finded
+            }
+            //does not recorgonize sql to 
+            return work.Users.Items.FirstOrDefault(e => ((e.Name == input || e.Email == input) && e.Password == password));//can throw an Exeprion if in db will ne 2 same users it is incorrect 
         }
-
-        public User GetUserByEmail(string email)
+        public User GetUser(string input)
         {
-            throw new NotImplementedException();
+            return work.Users.Items.FirstOrDefault(e => e.Email == input || e.Name == input);
         }
-
-        public User GetUserById(string token)
+        public User GetUser(int token)
         {
-            throw new NotImplementedException();
+            return work.Users.Items.FirstOrDefault(e => e.ID == (token));
         }
-
-        public void SendEmailToUser(User user)
+        public void SendEmailToUser(User user, string message = "")
         {
-            throw new NotImplementedException();
+            sender.Send(user.Email, message);
         }
-
         public void UpdateUser(User user)
         {
-            throw new NotImplementedException();
+            work.Users.Update(user);
+            work.Save();
         }
     }
 }

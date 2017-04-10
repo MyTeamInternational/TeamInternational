@@ -17,7 +17,9 @@ namespace TeamProject.DAL
             Database.CreateIfNotExists();
         }
         static CinemaContext() {
-          //  Database.SetInitializer<CinemaContext>(new Configuration());
+        //    Database.SetInitializer(
+        //new DropCreateDatabaseIfModelChanges<CinemaContext>());
+            //  Database.SetInitializer<CinemaContext>(new Configuration());
         }
         public DbSet<User> Users { get; set; }
         public DbSet<Movie> Movies { get; set; }
@@ -34,4 +36,6 @@ namespace TeamProject.DAL
                     .WithMany(movie => movie.Views); 
         }
     }
+
+    
 }

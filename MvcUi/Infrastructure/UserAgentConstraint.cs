@@ -13,12 +13,8 @@ namespace MvcUi.Infrastructure
         public bool Match(HttpContextBase httpContext, Route route, string parameterName,
         RouteValueDictionary values, RouteDirection routeDirection)
         {
-            bool match = false;
-
-            
+            bool match = false;            
             var ss = values["controller"];
-          
-
             match = httpContext.Request.UserAgent != null &&
             httpContext.Request.UserAgent.Contains(requiredUserAgent);
 
