@@ -11,5 +11,6 @@ namespace BLL.Abstract
         User GetUser(int token);
         void UpdateUser(User user);
         void SendEmailToUser(User user,string message);
+        bool CheckUserPassword(User user, string password);
     }
 }

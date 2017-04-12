@@ -26,20 +26,29 @@ namespace MvcUi.Controllers
             if (ModelState.IsValid)
             {
                 // поиск пользователя в бд
-                User user = accountManager.GetUser(model.Name, model.Password);
+                User user = accountManager.GetUser(model.Name);
+
                 if (user != null)
                 {
-                    if (user.ConfirmedEmail)
+                    if (accountManager.CheckUserPassword(user, model.Password))
                     {
-                        FormsAuthentication.SetAuthCookie(model.Name, true);
-                        return RedirectToAction(Constans_Cinema.HOME_PAGE2, Constans_Cinema.HOME_CONTROLLER);//TODO вопрос а что если нужно эти названия хранить в отдельном класе перечисления?
+
+                        if (user.ConfirmedEmail)
+                        {
+                            FormsAuthentication.SetAuthCookie(model.Name, true);
+                            return RedirectToAction(Constans_Cinema.HOME_PAGE2, Constans_Cinema.HOME_CONTROLLER);//TODO вопрос а что если нужно эти названия хранить в отдельном класе перечисления?
+                        }
+                        else
+                            ModelState.AddModelError("", "Не подтвержден Email");
                     }
                     else
-                        ModelState.AddModelError("", "Не подтвержден Email");
+                    {
+                        ModelState.AddModelError("", "Не верен пароль");
+                    }
                 }
                 else
                 {
-                    ModelState.AddModelError("", "Пользователя с таким логином и паролем нет");// как это переделывать под мультиязичный сайт
+                    ModelState.AddModelError("", "Пользователя с таким логином нет");// как это переделывать под мультиязичный сайт
                 }
             }
             return View("/Views/" + Constans_Cinema.HOME_CONTROLLER + "/" + Constans_Cinema.HOME_INDEX + ".cshtml", new Page1Model { LoginUser = model });

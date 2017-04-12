@@ -16,20 +16,6 @@ namespace BLL.Managers.Tests
         Mock<ICinemaWork> fakeWork = new Mock<ICinemaWork>();
 
         [TestMethod()]
-        public void CreateUserCutNameTest()
-        {
-            //bad test!
-            // User u = new User { ID = 1 };.Create(new User())
-            fakeWork.Setup(m => m.Users.Items).Returns(new List<User> { new User() }.AsQueryable());
-            fakeWork.Setup(m => m.Save());
-            AccountManager manager = new AccountManager(fakeWork.Object);
-            User resUser = manager.CreateUser("paulux@mail.ru", "testpwd");
-            var name = resUser.Name;
-         //   CheckFiedls(resUser);
-            Assert.AreEqual("paulux", name);
-            //Assert.AreEqual(2,fakeWork.Object.Users.Items.Count());
-        }
-        [TestMethod()]
         public void GetUserEmailAndNameBoth()
         {
             fakeWork.Setup(m => m.Users.Items).Returns(new List<User> { new User { ID = 1, Name = "A", Email = "A@mil.ru" } }.AsQueryable());
@@ -73,18 +59,19 @@ namespace BLL.Managers.Tests
         {
             fakeWork.Setup(m => m.Users.Items).Returns(new List<User> {
                 new User { ID = 1, Name = "pauluxxx", Email = "pauluxxx@mail.ru", Password = "55555" },
-                new User { ID = 4, Name = "pauluxxx", Email = "pauluxxx@gmail.com", Password = "555555" } ,
+                new User { ID = 4, Name = "pauluxxx", Email = "pauluxxx@gmail.com", Password = "55555" } ,
             }.AsQueryable());
             AccountManager manager = new AccountManager(fakeWork.Object);
-            User resUser = manager.GetUser("A", "55555");
+            User resUser = manager.GetUser("pauluxxx", "55555");
         }
         [TestMethod]
         public void GetUserEmptyItems()
         {
-            fakeWork.Setup(m => m.Users.Items).Returns(new List<User> {
+            fakeWork.Setup(m => m.Users.Items).Returns(new List<User>
+            {
             }.AsQueryable());
             AccountManager manager = new AccountManager(fakeWork.Object);
-            var s = manager.GetUser("A","s");
+            var s = manager.GetUser("A", "s");
         }
         [TestMethod]
         [ExpectedException(typeof(NotSupportedException))]
@@ -107,7 +94,24 @@ namespace BLL.Managers.Tests
             }.AsQueryable());
             AccountManager manager = new AccountManager(fakeWork.Object);
             User resUser = manager.GetUser(1);
-            Assert.AreEqual("As",resUser.Name);
+            Assert.AreEqual("As", resUser.Name);
         }
+        [TestMethod()]
+        public void CheckUserPasswordValid()
+        {
+            User user = new User { Password = "1234" };
+            AccountManager manager = new AccountManager(fakeWork.Object);
+            bool yes = manager.CheckUserPassword(user, "1234");
+            Assert.IsTrue(yes);
+        }
+        [TestMethod()]
+        public void CheckUserPasswordInvalid()
+        {
+            User user = new User { Password = "1234" };
+            AccountManager manager = new AccountManager(fakeWork.Object);
+            bool yes = manager.CheckUserPassword(user, "12");
+            Assert.IsFalse(yes);
+        }
+
     }
 }

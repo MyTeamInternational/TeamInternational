@@ -12,15 +12,24 @@
         public static readonly string ACCOUNT_LOGOUT = "LogOut";
         public static readonly string ACCOUNT_REGISTRATION = "Register";
     }
-    public enum MyStatusFlow {
+    public enum MyStatusFlow
+    {
         Registred,
         Not_Registred,
         Smile
     }
-    public static class MyStatusFlowExtention {
-        public static MyStatusFlow ParseUserAuth(this MyStatusFlow flow,bool authificated) {
+    public static class MyStatusFlowExtention
+    {
+        public static MyStatusFlow ParseUserAuth(this MyStatusFlow flow, bool authificated)
+        {
             return (authificated) ? MyStatusFlow.Registred : MyStatusFlow.Not_Registred;
         }
+    }
+    public static class Regex_Constants
+    {
+        public const string EMAIL = "^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$";
+        public const string PWD = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{6,}$";
+        public const string SimplePWD = "(\\w+){4}";
     }
 
 }

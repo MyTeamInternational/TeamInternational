@@ -62,5 +62,10 @@ namespace BLL.Managers
             work.Users.Update(user);
             work.Save();
         }
+
+        public bool CheckUserPassword(User user, string password)
+        {
+            return user.Password == password;
+        }
     }
 }

@@ -1,14 +1,16 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using CONSTANTS;
+using System.ComponentModel.DataAnnotations;
 namespace BLL.ViewModels.Account
 
 {
     public class RegisterModel
     {
         [Required]
+        [RegularExpression (Regex_Constants.EMAIL,ErrorMessage ="Email имеет не верный формат")]
         public string Email { get; set; }
 
         [Required]
-        [StringLength(100, ErrorMessage = "Пароль должен быть не менньше 6 знаков", MinimumLength = 6)]
+        [RegularExpression (Regex_Constants.SimplePWD ,ErrorMessage ="Слишком простой пароль")]
         [DataType(DataType.Password)]
         public string Password { get; set; }
         [Required]
