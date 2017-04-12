@@ -176,7 +176,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Infrastructure\CONSTANTS.cs" />
     <Compile Include="Infrastructure\Error\CustomErrorHandlerAttribute.cs" />
     <Compile Include="Infrastructure\Abstract\IUrlFlow.cs" />
     <Compile Include="Infrastructure\Dependencies\NinjectControllerFactory.cs" />
@@ -254,10 +253,17 @@
       <Project>{5E42539A-00E1-474E-8081-3A3111210996}</Project>
       <Name>BLL</Name>
     </ProjectReference>
+    <ProjectReference Include="..\CONSTANTS\CONSTANTS.csproj">
+      <Project>{587add32-058b-4b49-bd38-ee0a7b768b48}</Project>
+      <Name>CONSTANTS</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TeamProject.DAL\DAL.csproj">
       <Project>{ba37c1f2-2498-4e94-a19b-096091d78b2e}</Project>
       <Name>DAL</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

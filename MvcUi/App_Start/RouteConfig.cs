@@ -1,8 +1,4 @@
-﻿using MvcUi.Infrastructure;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using CONSTANTS;
 using System.Web.Mvc;
 using System.Web.Routing;
 
@@ -15,7 +11,7 @@ namespace MvcUi
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
             routes.MapRoute(name: "",
                 url: "{controller}/{action}/{link}",
-                defaults: new { controller = CONSTANTS.HOME_CONTROLLER, action = CONSTANTS.HOME_INDEX, link = UrlParameter.Optional }
+                defaults: new { controller = Constans_Cinema.HOME_CONTROLLER, action = Constans_Cinema.HOME_INDEX, link = UrlParameter.Optional }
             );
         }
     }

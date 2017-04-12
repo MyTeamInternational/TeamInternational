@@ -8,6 +8,7 @@ using System.Web.Mvc;
 using TeamProject.DAL.Entities;
 using TeamProject.DAL.Repositories;
 using TeamProject.DAL;
+using CONSTANTS;
 
 namespace MvcUi.Controllers
 {
@@ -33,7 +34,7 @@ namespace MvcUi.Controllers
             return View((object)name);
             //returns the 3rd page Movie, main page for Movie redacting
         }
-        [UrlAction]
+     
         public PartialViewResult Page2Data(string name = "")
         {
             IEnumerable<Movie> resList = manager.GetMovies(5);
@@ -47,7 +48,7 @@ namespace MvcUi.Controllers
         
         public bool CanGo(string action)
         {
-            return HomeController.FLow.CanGo(action, User.Identity.IsAuthenticated);
+            return HomeController.FLow.CanGo(action, MyStatusFlow.Registred.ParseUserAuth(User.Identity.IsAuthenticated));
         }
 
         public ActionResult GetRedirect()

@@ -5,12 +5,13 @@ using Ninject;
 using System.Web.Mvc;
 using System.Web.Security;
 using TeamProject.DAL.Entities;
-using System;
+using System.Linq;
+using CONSTANTS;
 
 namespace MvcUi.Controllers
 {
     [CustomErrorHandler]
-    public class AccountController : Controller,IUrlFlow
+    public class AccountController : Controller, IUrlFlow
     {
         [Inject]
         private IAccountManager accountManager;
@@ -31,7 +32,7 @@ namespace MvcUi.Controllers
                     if (user.ConfirmedEmail)
                     {
                         FormsAuthentication.SetAuthCookie(model.Name, true);
-                        return RedirectToAction(CONSTANTS.HOME_PAGE2, CONSTANTS.HOME_CONTROLLER);//TODO вопрос а что если нужно эти названия хранить в отдельном класе перечисления?
+                        return RedirectToAction(Constans_Cinema.HOME_PAGE2, Constans_Cinema.HOME_CONTROLLER);//TODO вопрос а что если нужно эти названия хранить в отдельном класе перечисления?
                     }
                     else
                         ModelState.AddModelError("", "Не подтвержден Email");
@@ -41,7 +42,7 @@ namespace MvcUi.Controllers
                     ModelState.AddModelError("", "Пользователя с таким логином и паролем нет");// как это переделывать под мультиязичный сайт
                 }
             }
-            return View("/Views/"+CONSTANTS.HOME_CONTROLLER+"/"+CONSTANTS.HOME_INDEX+".cshtml", new Page1Model { LoginUser = model});
+            return View("/Views/" + Constans_Cinema.HOME_CONTROLLER + "/" + Constans_Cinema.HOME_INDEX + ".cshtml", new Page1Model { LoginUser = model });
         }
         [UrlAction]
         public ActionResult Register()
@@ -65,7 +66,7 @@ namespace MvcUi.Controllers
                                                       "<a href=\"{0}\" title=\"Подтвердить регистрацию\">{0}</a>",
                                           Url.Action("ConfirmEmail", "Account", new { Token = user.ID, Email = user.Email }, Request.Url.Scheme));
                         accountManager.SendEmailToUser(user, s);
-                        return RedirectToAction(CONSTANTS.ACCOUNT_CONFIRM, CONSTANTS.ACCOUNT_CONTROLLER, new { Email = user.Email });
+                        return RedirectToAction(Constans_Cinema.ACCOUNT_CONFIRM, Constans_Cinema.ACCOUNT_CONTROLLER, new { Email = user.Email });
                     }
                     else
                     {
@@ -95,7 +96,7 @@ namespace MvcUi.Controllers
         public ActionResult LogOut()
         {
             FormsAuthentication.SignOut();
-            return RedirectToAction(CONSTANTS.HOME_INDEX, CONSTANTS.HOME_CONTROLLER);
+            return RedirectToAction(Constans_Cinema.HOME_INDEX, Constans_Cinema.HOME_CONTROLLER);
         }
         [UrlAction]
         public ActionResult UserName()
@@ -118,27 +119,25 @@ namespace MvcUi.Controllers
                     accountManager.UpdateUser(user);
                     FormsAuthentication.SetAuthCookie(user.Name, true);
                     TempData["messageEmail"] = "Успешно подтвержден имейл";
-                    return View(CONSTANTS.ACCOUNT_CONFIRM);
+                    return View(Constans_Cinema.ACCOUNT_CONFIRM);
                 }
                 else
                 {
-                    return RedirectToAction(CONSTANTS.ACCOUNT_CONFIRM, CONSTANTS.ACCOUNT_CONTROLLER, new { Email = user.Email });
+                    return RedirectToAction(Constans_Cinema.ACCOUNT_CONFIRM, Constans_Cinema.ACCOUNT_CONTROLLER, new { Email = user.Email });
                 }
             }
             else
             {
-                return RedirectToAction(CONSTANTS.ACCOUNT_CONFIRM, CONSTANTS.ACCOUNT_CONTROLLER, new { Email = "" });
+                return RedirectToAction(Constans_Cinema.ACCOUNT_CONFIRM, Constans_Cinema.ACCOUNT_CONTROLLER, new { Email = "" });
             }
         }
         public bool CanGo(string action)
         {
-            //  return accountFlow.CanUseAction[action];
-            return false;
+            return HomeController.FLow.CanGo(action, MyStatusFlow.Registred.ParseUserAuth(User.Identity.IsAuthenticated));
         }
-
         public ActionResult GetRedirect()
         {
-            return new RedirectResult ("/"+CONSTANTS.HOME_CONTROLLER+"/"+CONSTANTS.HOME_INDEX);
+            return new RedirectResult(HomeController.FLow.GetRedirect());
         }
     }
 }

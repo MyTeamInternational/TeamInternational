@@ -1,10 +1,7 @@
 ﻿using BLL.Abstract;
-using System;
+using CONSTANTS;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace BLL.UrlFlow
 {
     public class HomeUrlFlow : IHomeUrlFlow
@@ -24,27 +21,40 @@ namespace BLL.UrlFlow
         public HomeUrlFlow()
         {
             canUseAction = new Dictionary<string, bool>();
+            CanUseAction.Add(Constans_Cinema.HOME_INDEX, true);
+            CanUseAction.Add(Constans_Cinema.HOME_PAGE2, false);
+            CanUseAction.Add(Constans_Cinema.ACCOUNT_LOGOUT, false);
+            CanUseAction.Add(Constans_Cinema.ACCOUNT_REGISTRATION, true);
         }
         public string GetRedirect()
         {
             //Home мне не нравиться
-            return "/" + "Home" + "/" + this.CanUseAction.FirstOrDefault((v) => v.Value == true).Key;
+            return "/" + Constans_Cinema.HOME_CONTROLLER + "/" + this.CanUseAction.FirstOrDefault((KeyValuePair<string, bool> v) => v.Value == true).Key;
         }
 
-        public bool CanGo(string action,bool can)
+        public bool CanGo(string action, MyStatusFlow status)
         {
-            if (can)
+            switch (status)
             {
-                this.CanUseAction["Page1"] = false;
-                this.CanUseAction["Page2"] = true;
-
+                case MyStatusFlow.Registred:
+                    {
+                        this.canUseAction[Constans_Cinema.ACCOUNT_REGISTRATION] = false;
+                        this.canUseAction[Constans_Cinema.ACCOUNT_LOGOUT] = false;
+                        this.CanUseAction[Constans_Cinema.HOME_INDEX] = false;
+                        this.CanUseAction[Constans_Cinema.HOME_PAGE2] = true;
+                        break;
+                    }
+                case MyStatusFlow.Not_Registred:
+                    {
+                        this.canUseAction[Constans_Cinema.ACCOUNT_REGISTRATION] = true;
+                        this.canUseAction[Constans_Cinema.ACCOUNT_LOGOUT] = true;
+                        this.CanUseAction[Constans_Cinema.HOME_INDEX] = true;
+                        this.CanUseAction[Constans_Cinema.HOME_PAGE2] = false;
+                        break;
+                    }
+                case MyStatusFlow.Smile: { break; }
             }
-            else {
-                this.CanUseAction["Page1"] = true;
-                this.CanUseAction["Page2"] = false;
-
-            }
-            return this.CanUseAction[action];
+            return (this.CanUseAction.ContainsKey(action)) ? this.CanUseAction[action] : false;
         }
     }
 }

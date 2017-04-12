@@ -78,6 +78,10 @@
     <Compile Include="VMBuilders\MovieVMBuilder.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\CONSTANTS\CONSTANTS.csproj">
+      <Project>{587add32-058b-4b49-bd38-ee0a7b768b48}</Project>
+      <Name>CONSTANTS</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TeamProject.DAL\DAL.csproj">
       <Project>{BA37C1F2-2498-4E94-A19B-096091D78B2E}</Project>
       <Name>DAL</Name>

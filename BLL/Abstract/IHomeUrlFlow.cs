@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CONSTANTS;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,6 +11,6 @@ namespace BLL.Abstract
     {
          IDictionary<string,bool> CanUseAction { get; set; }
         string GetRedirect();
-        bool CanGo(string action,bool can);
+        bool CanGo(string action, MyStatusFlow status);
     }
 }

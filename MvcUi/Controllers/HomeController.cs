@@ -3,7 +3,7 @@ using BLL.ViewModels.Account;
 using MvcUi.Infrastructure;
 using Ninject;
 using System.Web.Mvc;
-using System.Linq;
+using CONSTANTS;
 
 //1)demo class diagramm 
 //presentation pps video
@@ -33,13 +33,11 @@ namespace MvcUi.Controllers
 
         public HomeController(IHomeUrlFlow flow)
         {
-            flow.CanUseAction.Add(CONSTANTS.HOME_INDEX, true);
-            flow.CanUseAction.Add(CONSTANTS.HOME_PAGE2, false);
             urlFlow = flow;
         }
         public bool CanGo(string action)
         {
-            return urlFlow.CanGo(action, User.Identity.IsAuthenticated);
+            return urlFlow.CanGo(action, MyStatusFlow.Registred.ParseUserAuth(User.Identity.IsAuthenticated));
         }
 
         public ActionResult GetRedirect()
@@ -52,10 +50,9 @@ namespace MvcUi.Controllers
         {
             return View(new Page1Model { LoginUser = new LoginModel { } });
         }
-        [UrlAction]
         public ActionResult Page2()
         {
-            return RedirectToAction(CONSTANTS.MOVIE_INDEX, CONSTANTS.MOVIE_CONTROLLER);
+            return RedirectToAction(Constans_Cinema.MOVIE_INDEX, Constans_Cinema.MOVIE_CONTROLLER);
         }
 
     }
