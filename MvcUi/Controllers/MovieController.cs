@@ -26,11 +26,14 @@ namespace MvcUi.Controllers
             this.builder = builder;
         }
         // GET: Movie
+        [UrlAction]
         public ActionResult Page2(string name = "")
         {
+
             return View((object)name);
             //returns the 3rd page Movie, main page for Movie redacting
         }
+        [UrlAction]
         public PartialViewResult Page2Data(string name = "")
         {
             IEnumerable<Movie> resList = manager.GetMovies(5);
@@ -41,8 +44,7 @@ namespace MvcUi.Controllers
             var resModel = builder.GetVMList(resList);
             return PartialView(resModel);
         }
-
-
+        
         public bool CanGo(string action)
         {
             return HomeController.FLow.CanGo(action, User.Identity.IsAuthenticated);

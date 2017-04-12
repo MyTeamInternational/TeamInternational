@@ -29,3 +29,12 @@
         <button type="submit">Отобразить</button>
     </div>
 }
+
+@using (Html.BeginForm("Create", "Movie", FormMethod.Get))
+{
+    <p>Input name of movie: </p>
+    @Html.TextBox("Name", "Input name")
+    <p>Input release year:</p>
+    @Html.TextBox("ReleaseYear", "Input year")
+    <p><input type="submit" value="Save" /></p>
+}
