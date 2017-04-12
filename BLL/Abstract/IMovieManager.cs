@@ -7,5 +7,8 @@ namespace BLL.Abstract
     {
         IEnumerable<Movie> GetMovies(int v);
         IEnumerable<Movie> GetMovies(string name);
+        Movie CreateMovie(Movie movie);
+        Movie GetMovie(int id);
+        void Update(Movie movie);
     }
 }

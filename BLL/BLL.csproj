@@ -66,6 +66,7 @@
     <Compile Include="Abstract\IEmailService.cs" />
     <Compile Include="Abstract\IMovieVMBuilder.cs" />
     <Compile Include="Abstract\IMovieManager.cs" />
+    <Compile Include="Helpers\MovieHelper.cs" />
     <Compile Include="Managers\AccountManager.cs" />
     <Compile Include="Managers\MovieManager.cs" />
     <Compile Include="Managers\MyEmailSender.cs" />

@@ -2,15 +2,28 @@
 {
     public static class Constans_Cinema
     {
-        public readonly static string ACCOUNT_CONTROLLER = "Account";
-        public readonly static string ACCOUNT_CONFIRM = "Confirm";
-        public readonly static string HOME_CONTROLLER = "Home";
-        public readonly static string HOME_INDEX = "Page1";
-        public readonly static string HOME_PAGE2 = "Page2";
-        public readonly static string MOVIE_CONTROLLER = "Movie";
-        public readonly static string MOVIE_INDEX = HOME_PAGE2;
-        public static readonly string ACCOUNT_LOGOUT = "LogOut";
-        public static readonly string ACCOUNT_REGISTRATION = "Register";
+        public const string HOME_CONTROLLER = "Home";
+        public const string MOVIE_CONTROLLER = "Movie";
+        public const string ACCOUNT_CONTROLLER = "Account";
+        public const string LAST_PAGE_CONTROLLER = "LastPage";
+
+        public const string ACCOUNT_CONFIRM = "Confirm";
+        public const string ACCOUNT_LOGOUT = "LogOut";
+        public const string ACCOUNT_REGISTRATION = "Register";
+
+        public const string HOME_INDEX = "Page1";
+        public const string HOME_PAGE2 = "Page2";
+
+        public const string MOVIE_INDEX = HOME_PAGE2;
+        public const string MOVIE_UPDATE = "Update";
+        public const string MOVIE_EDIT = "Page3";
+
+        public const string LAST_PAGE_INDEX = "Page4";
+
+
+        public static string DEFAULT_ROUTE = "Default";
+        public static string STANDARD_LAYOUT = "~/Views/Shared/_Layout.cshtml";
+
     }
     public enum MyStatusFlow
     {

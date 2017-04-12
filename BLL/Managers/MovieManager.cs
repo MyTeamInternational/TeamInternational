@@ -37,5 +37,23 @@ namespace BLL.Managers
 
             return work.Movies.Items.Take(count);
         }
+
+        public Movie CreateMovie(Movie movie)
+        {
+            work.Movies.Create(movie);
+            work.Save();
+            return work.Movies.Items.ToList().LastOrDefault(e=>e.Name==movie.Name);
+
+        }
+
+        public Movie GetMovie(int id)
+        {
+            return work.Movies.Get(id);
+        }
+
+        public void Update(Movie movie)
+        {
+            work.Movies.Update(movie);
+        }
     }
 }

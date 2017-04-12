@@ -180,7 +180,6 @@
     <Compile Include="Infrastructure\Abstract\IUrlFlow.cs" />
     <Compile Include="Infrastructure\Dependencies\NinjectControllerFactory.cs" />
     <Compile Include="Infrastructure\Attributes\UrlActionAttribute.cs" />
-    <Compile Include="Infrastructure\UserAgentConstraint.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -232,9 +231,8 @@
     <Content Include="Views\Shared\_EnterLoginLayout.cshtml" />
     <Content Include="Views\Movie\Page2.cshtml" />
     <Content Include="Views\Shared\Movie\MovieSummary.cshtml" />
-    <Content Include="Views\Movie\Create.cshtml" />
-    <Content Include="Views\Movie\Edit.cshtml" />
-    <Content Include="Views\LastPage\Index.cshtml" />
+    <Content Include="Views\Movie\Page3.cshtml" />
+    <Content Include="Views\LastPage\Page4.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Movie\Page2Data.cshtml" />
   </ItemGroup>

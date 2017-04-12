@@ -55,6 +55,7 @@ namespace BLL.Managers
         }
         public void SendEmailToUser(User user, string message = "")
         {
+            
             sender.Send(user.Email, message);
         }
         public void UpdateUser(User user)

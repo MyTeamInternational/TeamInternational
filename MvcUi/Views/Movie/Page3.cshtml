@@ -1,12 +1,12 @@
-﻿@model DAL.Entities.Movie
+﻿@model TeamProject.DAL.Entities.Movie
 @{
-    ViewBag.Title = "Page2";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Page3"; 
+    Layout = CONSTANTS.Constans_Cinema.STANDARD_LAYOUT;
 }
 
 <h2>Page 3</h2>
 <h2>5 Edit the movie. You can change any info </h2>
-@using (Html.BeginForm("Edit", "Movie", FormMethod.Get))
+@using (Html.BeginForm(CONSTANTS.Constans_Cinema.MOVIE_UPDATE, "Movie", FormMethod.Post))
 {
     <p>Movie name: </p>
     @Html.TextBox("Name", Model.Name)
@@ -15,4 +15,4 @@
     <p>Release year:</p>
     @Html.TextBox("ReleaseYear", Model.ReleaseYear)
     <p><input type="submit" value="Save" /></p>
-}
+}s

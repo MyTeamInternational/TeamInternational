@@ -10,7 +10,7 @@ namespace BLL.Managers
 {
     public class MyEmailSender: IEmailService
     {
-        public void Send(string userEmail,string message)
+        public void  Send(string userEmail,string message)
         {
             //:TODO - можно сделать настройку из xml
             MailAddress from = new MailAddress("pauluxxx@mail.ru", "Web Registration");
@@ -28,7 +28,15 @@ namespace BLL.Managers
             // логин и пароль
             smtp.EnableSsl = true;
             smtp.Credentials = new System.Net.NetworkCredential("pauluxxx@mail.ru", "5898044p");
-            smtp.Send(m);
+            try
+            {
+
+                smtp.Send(m);
+            }
+            catch (Exception )
+            {
+                throw;
+            }
         }
     }
 }

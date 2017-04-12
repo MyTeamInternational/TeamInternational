@@ -9,6 +9,7 @@ using TeamProject.DAL.Entities;
 using TeamProject.DAL.Repositories;
 using TeamProject.DAL;
 using CONSTANTS;
+using BLL.Helpers;
 
 namespace MvcUi.Controllers
 {
@@ -18,8 +19,6 @@ namespace MvcUi.Controllers
         IMovieManager manager;
         [Inject]
         IMovieVMBuilder builder;
-
-        CinemaContext db = new CinemaContext();
 
         public MovieController(IMovieManager manager, IMovieVMBuilder builder)
         {
@@ -34,7 +33,7 @@ namespace MvcUi.Controllers
             return View((object)name);
             //returns the 3rd page Movie, main page for Movie redacting
         }
-     
+
         public PartialViewResult Page2Data(string name = "")
         {
             IEnumerable<Movie> resList = manager.GetMovies(5);
@@ -45,7 +44,27 @@ namespace MvcUi.Controllers
             var resModel = builder.GetVMList(resList);
             return PartialView(resModel);
         }
+
+        [HttpPost]
+        public ActionResult Create(MovieModel movieModel)
+        {
+            Movie movie = manager.CreateMovie(movieModel.GetByModel());
+            return RedirectToRoute(Constans_Cinema.DEFAULT_ROUTE, new { action = Constans_Cinema.MOVIE_EDIT, controller = Constans_Cinema.MOVIE_CONTROLLER, id = movie.ID });
+        }
+        [HttpGet]
+        [ActionName(Constans_Cinema.MOVIE_EDIT)]
         
+        public ActionResult Page3(int id)
+        {
+            return View(manager.GetMovie(id));
+        }
+        [HttpPut]
+        public ActionResult Update(Movie movie)
+        {
+            manager.Update(movie);
+            return RedirectToAction(Constans_Cinema.LAST_PAGE_INDEX, Constans_Cinema.LAST_PAGE_CONTROLLER);
+        }
+
         public bool CanGo(string action)
         {
             return HomeController.FLow.CanGo(action, MyStatusFlow.Registred.ParseUserAuth(User.Identity.IsAuthenticated));

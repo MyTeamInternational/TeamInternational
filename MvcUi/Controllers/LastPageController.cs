@@ -9,7 +9,7 @@ namespace MvcUi.Controllers
     public class LastPageController : Controller
     {
         // GET: LastPage
-        public ActionResult Index()
+        public ActionResult Page4()
         {
             return View();
         }

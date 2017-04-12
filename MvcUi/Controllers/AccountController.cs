@@ -25,14 +25,11 @@ namespace MvcUi.Controllers
         {
             if (ModelState.IsValid)
             {
-                // поиск пользователя в бд
                 User user = accountManager.GetUser(model.Name);
-
                 if (user != null)
                 {
                     if (accountManager.CheckUserPassword(user, model.Password))
                     {
-
                         if (user.ConfirmedEmail)
                         {
                             FormsAuthentication.SetAuthCookie(model.Name, true);
@@ -94,7 +91,6 @@ namespace MvcUi.Controllers
                 return View(model);
             }
         }
-
         public ViewResult Confirm(string Email)
         {
             TempData["messageEmail"] = "На почтовый адрес " + Email + " Вам высланы дальнейшие" +
@@ -142,7 +138,12 @@ namespace MvcUi.Controllers
         }
         public bool CanGo(string action)
         {
-            return HomeController.FLow.CanGo(action, MyStatusFlow.Registred.ParseUserAuth(User.Identity.IsAuthenticated));
+            bool go = User.Identity.IsAuthenticated;
+            if (action==Constans_Cinema.ACCOUNT_LOGOUT)
+            {
+                go = !User.Identity.IsAuthenticated;
+            }
+            return HomeController.FLow.CanGo(action, MyStatusFlow.Registred.ParseUserAuth(go));
         }
         public ActionResult GetRedirect()
         {
