@@ -1,4 +1,4 @@
-﻿using MySql.Data.Entity;
+﻿//using MySql.Data.Entity;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -10,7 +10,7 @@ using TeamProject.DAL.Entities;
 
 namespace TeamProject.DAL
 {
-    [DbConfigurationType(typeof(MySqlEFConfiguration))]
+    //[DbConfigurationType(typeof(MySqlEFConfiguration))]
     public class CinemaContext : DbContext
     {
         public CinemaContext() : base("CinemaContext")

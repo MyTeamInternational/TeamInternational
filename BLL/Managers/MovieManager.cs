@@ -54,6 +54,7 @@ namespace BLL.Managers
         public void Update(Movie movie)
         {
             work.Movies.Update(movie);
+            work.Save();
         }
     }
 }
