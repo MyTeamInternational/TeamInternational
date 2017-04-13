@@ -9,6 +9,8 @@ namespace BLL.ViewModels.Movie
 
         public int ReleaseYear { get; set; }
 
+        public string ImagePath { get; set; }
+
         public MovieModel()
         {
         }

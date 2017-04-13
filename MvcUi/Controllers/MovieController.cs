@@ -6,8 +6,6 @@ using Ninject;
 using System.Collections.Generic;
 using System.Web.Mvc;
 using TeamProject.DAL.Entities;
-using TeamProject.DAL.Repositories;
-using TeamProject.DAL;
 using CONSTANTS;
 using BLL.Helpers;
 using System.Web;
