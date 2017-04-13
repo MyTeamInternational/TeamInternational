@@ -18,7 +18,9 @@ namespace TeamProject.DAL.Entities
         public int AgeLimit { get; set; }
 
         public int ReleaseYear { get; set; }
- 
+
+        public string ImagePath { get; set; }
+
         public ICollection<View> Views { get; set; }
     }
 }

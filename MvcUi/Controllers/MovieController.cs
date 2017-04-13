@@ -10,6 +10,8 @@ using TeamProject.DAL.Repositories;
 using TeamProject.DAL;
 using CONSTANTS;
 using BLL.Helpers;
+using System.Web;
+using System.IO;
 
 namespace MvcUi.Controllers
 {
@@ -58,9 +60,30 @@ namespace MvcUi.Controllers
         {
             return View(manager.GetMovie(id));
         }
-        [HttpPut]
-        public ActionResult Update(Movie movie)
+        [HttpPost]
+        public ActionResult Update(Movie movie, HttpPostedFileBase file)
         {
+            var path = "";
+            var relativePath = "";
+            if (file != null)
+            {
+                if (file.ContentLength > 0)
+                {
+                    if (Path.GetExtension(file.FileName).ToLower() == ".jpg"
+                        || Path.GetExtension(file.FileName).ToLower() == ".png"
+                        || Path.GetExtension(file.FileName).ToLower() == ".gif"
+                        || Path.GetExtension(file.FileName).ToLower() == ".jpeg")
+                    {
+                        path = Path.Combine(Server.MapPath("~/Content/Images"), file.FileName);
+                        relativePath = "~/Content/Images/" + file.FileName;
+                        file.SaveAs(path);
+                        ViewBag.UploadSuccess = true;
+                        
+                    }
+                }
+            }
+
+            movie.ImagePath = relativePath;
             manager.Update(movie);
             return RedirectToAction(Constans_Cinema.LAST_PAGE_INDEX, Constans_Cinema.LAST_PAGE_CONTROLLER);
         }

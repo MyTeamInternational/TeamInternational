@@ -6,13 +6,21 @@
 
 <h2>Page 3</h2>
 <h2>5 Edit the movie. You can change any info </h2>
-@using (Html.BeginForm(CONSTANTS.Constans_Cinema.MOVIE_UPDATE, "Movie", FormMethod.Post))
+@using (Html.BeginForm(CONSTANTS.Constans_Cinema.MOVIE_UPDATE, CONSTANTS.Constans_Cinema.MOVIE_CONTROLLER, FormMethod.Post, 
+    new { enctype = "multipart/form-data" }))
 {
+    @Html.Hidden("ID", Model.ID)
     <p>Movie name: </p>
     @Html.TextBox("Name", Model.Name)
     <p>Age limit:</p>
     @Html.TextBox("AgeLiit", Model.AgeLimit)
     <p>Release year:</p>
     @Html.TextBox("ReleaseYear", Model.ReleaseYear)
+
+    <br />
+    <h3>Upload Image</h3>
+    <input type="file" name="file" value="Browse" />
+    <br />
+
     <p><input type="submit" value="Save" /></p>
-}s
+}
