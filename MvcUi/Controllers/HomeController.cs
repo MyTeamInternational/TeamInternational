@@ -37,7 +37,14 @@ namespace MvcUi.Controllers
         }
         public bool CanGo(string action)
         {
-            return urlFlow.CanGo(action, MyStatusFlow.Registred.ParseUserAuth(User.Identity.IsAuthenticated));
+            bool go = User.Identity.IsAuthenticated;
+            if (action == Constans_Cinema.ACCOUNT_LOGOUT)
+            {
+                go = !User.Identity.IsAuthenticated;
+            }
+            HomeController.FLow.StatusFlow = (go) ? MyStatusFlow.Registred : MyStatusFlow.Not_Registred;
+
+            return HomeController.FLow.CanGo(action);
         }
 
         public ActionResult GetRedirect()

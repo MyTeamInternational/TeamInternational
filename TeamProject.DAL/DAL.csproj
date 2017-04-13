@@ -78,9 +78,9 @@
     <Compile Include="Entities\User.cs" />
     <Compile Include="Entities\View.cs" />
     <Compile Include="ICinemaWork.cs" />
-    <Compile Include="Migrations\201704130815020_Adding ImagePath.cs" />
-    <Compile Include="Migrations\201704130815020_Adding ImagePath.Designer.cs">
-      <DependentUpon>201704130815020_Adding ImagePath.cs</DependentUpon>
+    <Compile Include="Migrations\201704131149130_intial.cs" />
+    <Compile Include="Migrations\201704131149130_intial.Designer.cs">
+      <DependentUpon>201704131149130_intial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -97,8 +97,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201704130815020_Adding ImagePath.resx">
-      <DependentUpon>201704130815020_Adding ImagePath.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201704131149130_intial.resx">
+      <DependentUpon>201704131149130_intial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

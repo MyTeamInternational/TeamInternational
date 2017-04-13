@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -37,6 +38,10 @@ namespace TeamProject.DAL.Repositories
             => db.Movies.SingleOrDefault(movie => movie.ID == id);
 
         public void Update(Movie movie)
-            => db.Entry<Movie>(movie).State = EntityState.Modified;
+
+        {
+            db.Movies.AddOrUpdate(movie);
+          //  db.Entry<Movie>(movie).State = EntityState.Modified;
+        }
     }
 }

@@ -55,10 +55,18 @@ namespace MvcUi.Controllers
         }
         [HttpGet]
         [ActionName(Constans_Cinema.MOVIE_EDIT)]
-        
+
         public ActionResult Page3(int id)
         {
-            return View(manager.GetMovie(id));
+            Movie m = manager.GetMovie(id);
+            if (m != null)
+            {
+                return View(m);
+            }
+            else
+            {
+                return new RedirectResult(HomeController.FLow.GetRedirect());
+            }
         }
         [HttpPost]
         public ActionResult Update(Movie movie, HttpPostedFileBase file)
@@ -78,19 +86,27 @@ namespace MvcUi.Controllers
                         relativePath = "~/Content/Images/" + file.FileName;
                         file.SaveAs(path);
                         ViewBag.UploadSuccess = true;
-                        
+
                     }
                 }
             }
-
             movie.ImagePath = relativePath;
+            // manager.UploadImage(file);
             manager.Update(movie);
+            HomeController.FLow.StatusFlow = MyStatusFlow.Smile;
             return RedirectToAction(Constans_Cinema.LAST_PAGE_INDEX, Constans_Cinema.LAST_PAGE_CONTROLLER);
         }
 
         public bool CanGo(string action)
         {
-            return HomeController.FLow.CanGo(action, MyStatusFlow.Registred.ParseUserAuth(User.Identity.IsAuthenticated));
+            bool go = User.Identity.IsAuthenticated;
+            if (action == Constans_Cinema.ACCOUNT_LOGOUT)
+            {
+                go = !User.Identity.IsAuthenticated;
+            }
+            HomeController.FLow.StatusFlow = (go) ? MyStatusFlow.Registred : MyStatusFlow.Not_Registred;
+
+            return HomeController.FLow.CanGo(action);
         }
 
         public ActionResult GetRedirect()

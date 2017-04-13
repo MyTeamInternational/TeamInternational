@@ -101,6 +101,7 @@ namespace MvcUi.Controllers
         public ActionResult LogOut()
         {
             FormsAuthentication.SignOut();
+            HomeController.FLow.StatusFlow = MyStatusFlow.Not_Registred;
             return RedirectToAction(Constans_Cinema.HOME_INDEX, Constans_Cinema.HOME_CONTROLLER);
         }
         [UrlAction]
@@ -124,6 +125,7 @@ namespace MvcUi.Controllers
                     accountManager.UpdateUser(user);
                     FormsAuthentication.SetAuthCookie(user.Name, true);
                     TempData["messageEmail"] = "Успешно подтвержден имейл";
+                    HomeController.FLow.StatusFlow = MyStatusFlow.Registred;
                     return View(Constans_Cinema.ACCOUNT_CONFIRM);
                 }
                 else
@@ -143,7 +145,9 @@ namespace MvcUi.Controllers
             {
                 go = !User.Identity.IsAuthenticated;
             }
-            return HomeController.FLow.CanGo(action, MyStatusFlow.Registred.ParseUserAuth(go));
+            HomeController.FLow.StatusFlow =(go)?MyStatusFlow.Registred:MyStatusFlow.Not_Registred;
+
+            return HomeController.FLow.CanGo(action);
         }
         public ActionResult GetRedirect()
         {

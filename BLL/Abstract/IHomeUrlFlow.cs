@@ -11,6 +11,7 @@ namespace BLL.Abstract
     {
          IDictionary<string,bool> CanUseAction { get; set; }
         string GetRedirect();
-        bool CanGo(string action, MyStatusFlow status);
+        bool CanGo(string action);
+        MyStatusFlow StatusFlow { get; set; }
     }
 }

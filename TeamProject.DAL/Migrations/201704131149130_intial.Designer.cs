@@ -7,13 +7,13 @@ namespace TeamProject.DAL.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class AddingImagePath : IMigrationMetadata
+    public sealed partial class intial : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(AddingImagePath));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(intial));
         
         string IMigrationMetadata.Id
         {
-            get { return "201704130815020_Adding ImagePath"; }
+            get { return "201704131149130_intial"; }
         }
         
         string IMigrationMetadata.Source
