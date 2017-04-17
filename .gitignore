@@ -1,0 +1,6 @@
+/packages
+/TeamInternational.DAL/bin
+/TeamInternational.DAL/obj
+/TeamInternational.DAL/Migrations
+/TeamInternational.DAL.TestHosting/bin
+/TeamInternational.DAL.TestHosting/obj
