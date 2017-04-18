@@ -16,30 +16,32 @@ namespace MvcUi.Controllers
     public class MovieController : Controller, IUrlFlow
     {
         [Inject]
-        IMovieManager manager;
+        IPictureManager pictureManager;
+        [Inject]
+        IMovieManager movieManager;
         [Inject]
         IMovieVMBuilder builder;
 
-        public MovieController(IMovieManager manager, IMovieVMBuilder builder)
+        public MovieController(IPictureManager pictureManager, IMovieManager movieManager, IMovieVMBuilder builder)
         {
-            this.manager = manager;
+            this.pictureManager = pictureManager;
+            this.movieManager = movieManager;
             this.builder = builder;
         }
         // GET: Movie
         [UrlAction]
         public ActionResult Page2(string name = "")
         {
-
             return View((object)name);
             //returns the 3rd page Movie, main page for Movie redacting
         }
 
         public PartialViewResult Page2Data(string name = "")
         {
-            IEnumerable<Movie> resList = manager.GetMovies(5);
+            IEnumerable<Movie> resList = movieManager.GetMovies(5);
             if (name != "")
             {
-                resList = manager.GetMovies(name);
+                resList = movieManager.GetMovies(name);
             }
             var resModel = builder.GetVMList(resList);
             return PartialView(resModel);
@@ -48,7 +50,7 @@ namespace MvcUi.Controllers
         [HttpPost]
         public ActionResult Create(MovieModel movieModel)
         {
-            Movie movie = manager.CreateMovie(movieModel.GetByModel());
+            Movie movie = movieManager.CreateMovie(movieModel.GetByModel());
             return RedirectToRoute(Constans_Cinema.DEFAULT_ROUTE, new { action = Constans_Cinema.MOVIE_EDIT, controller = Constans_Cinema.MOVIE_CONTROLLER, id = movie.ID });
         }
         [HttpGet]
@@ -56,33 +58,13 @@ namespace MvcUi.Controllers
         
         public ActionResult Page3(int id)
         {
-            return View(manager.GetMovie(id));
+            return View(movieManager.GetMovie(id));
         }
         [HttpPost]
-        public ActionResult Update(Movie movie, HttpPostedFileBase file)
+        public ActionResult Update(Movie movie, List<HttpPostedFileBase> files)
         {
-            var path = "";
-            var relativePath = "";
-            if (file != null)
-            {
-                if (file.ContentLength > 0)
-                {
-                    if (Path.GetExtension(file.FileName).ToLower() == ".jpg"
-                        || Path.GetExtension(file.FileName).ToLower() == ".png"
-                        || Path.GetExtension(file.FileName).ToLower() == ".gif"
-                        || Path.GetExtension(file.FileName).ToLower() == ".jpeg")
-                    {
-                        path = Path.Combine(Server.MapPath("~/Content/Images"), file.FileName);
-                        relativePath = "~/Content/Images/" + file.FileName;
-                        file.SaveAs(path);
-                        ViewBag.UploadSuccess = true;
-                        
-                    }
-                }
-            }
-
-            movie.ImagePath = relativePath;
-            manager.Update(movie);
+            pictureManager.CreatePictures(movie.ID, files);
+            movieManager.Update(movie);
             return RedirectToAction(Constans_Cinema.LAST_PAGE_INDEX, Constans_Cinema.LAST_PAGE_CONTROLLER);
         }
 

@@ -17,6 +17,5 @@ namespace TeamProject.DAL.Entities
         public string Email { get; set; }
         public string Password { get; set; }
         public bool ConfirmedEmail { get; set; }
-        public ICollection<View> Views { get; set; }
     }
 }

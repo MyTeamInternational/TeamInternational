@@ -9,20 +9,13 @@ using TeamProject.DAL.Entities.Interfaces;
 
 namespace TeamProject.DAL.Entities
 {
-    public class View : IEntity
+    // Will be keeping in file system.
+    public class Picture : IEntity
     {
         [Key]
         public int ID { get; set; }
 
-        public DateTime Date { get; set; }
-        public TimeSpan Time { get; set; }
-
-       
-        public int UserID { get; set; }
         public int MovieID { get; set; }
-
-        [ForeignKey("UserID")]
-        public User User { get; set; }
 
         [ForeignKey("MovieID")]
         public Movie Movie { get; set; }

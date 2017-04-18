@@ -23,7 +23,7 @@ namespace TeamProject.DAL.Repositories
             this.db = db;
         }
 
-        public void Create(Movie movie)
+        public Movie Create(Movie movie)
              => db.Movies.Add(movie);
 
         public void Delete(Movie movie)

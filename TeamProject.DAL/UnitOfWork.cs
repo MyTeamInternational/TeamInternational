@@ -16,7 +16,7 @@ namespace TeamProject.DAL
 
         private IRepository<User> userRepository;
         private IRepository<Movie> movieRepository;
-        private IRepository<View> viewRepository;
+        private IRepository<Picture> pictureRepository;
 
         public UnitOfWork()
         {
@@ -29,8 +29,8 @@ namespace TeamProject.DAL
         public IRepository<Movie> Movies
             => movieRepository ?? (movieRepository = new MovieRepository(db));
 
-        public IRepository<View> Views
-            => viewRepository ?? (viewRepository = new ViewRepository(db));
+        public IRepository<Picture> Pictures
+            => pictureRepository ?? (pictureRepository = new PictureRepository(db));
 
         public void Save()
             => db.SaveChanges();

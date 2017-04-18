@@ -9,11 +9,9 @@ namespace BLL.ViewModels.Movie
 
         public int ReleaseYear { get; set; }
 
-        public string ImagePath { get; set; }
-
         public MovieModel()
         {
         }
-        public ICollection<View> Views { get; set; }
+        public ICollection<Picture> Pictures { get; set; }
     }
 }

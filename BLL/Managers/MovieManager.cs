@@ -9,6 +9,8 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using TeamProject.DAL;
 using TeamProject.DAL.Entities;
+using System.Web;
+using System.IO;
 
 namespace BLL.Managers
 {
@@ -25,9 +27,9 @@ namespace BLL.Managers
 
         public IEnumerable<Movie> GetMovies(string name)
         {
-            return work.Movies.Items.ToList().Where(e => match(e, name));
+            return work.Movies.Items.ToList().Where(e => Match(e, name));
         }
-        private bool match(Movie e, string name)
+        private bool Match(Movie e, string name)
         {
             return new Regex(string.Format(RegexPWordStartOnWord,name), RegexOptions.IgnoreCase).Match(e.Name).Success;
 
@@ -40,10 +42,9 @@ namespace BLL.Managers
 
         public Movie CreateMovie(Movie movie)
         {
-            work.Movies.Create(movie);
+            movie = work.Movies.Create(movie);
             work.Save();
-            return work.Movies.Items.ToList().LastOrDefault(e=>e.Name==movie.Name);
-
+            return movie;
         }
 
         public Movie GetMovie(int id)

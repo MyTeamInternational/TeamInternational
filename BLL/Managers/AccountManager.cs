@@ -30,7 +30,7 @@ namespace BLL.Managers
         public User CreateUser(string email, string password)
         {
             IEnumerable<char> cutName = email.TakeWhile(e => e != '@');
-            User user = new User { Email = email, ConfirmedEmail = false, Name = new String(cutName.ToList().ToArray()), Password = password, Views = null };
+            User user = new User { Email = email, ConfirmedEmail = false, Name = new String(cutName.ToList().ToArray()), Password = password };
             work.Users.Create(user);
             work.Save();
             return user;
