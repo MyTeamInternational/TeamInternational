@@ -2,39 +2,66 @@
 @{
     ViewBag.Title = "Page2";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    AjaxOptions ajax = new AjaxOptions
+    AjaxOptions ajaxOpt = new AjaxOptions
     {
-        UpdateTargetId = "tableBody"
-        ,Url=Url.Action("Page2Data")
+        UpdateTargetId = "tableBody",
+        Url = Url.Action("Page2Data"),
+        Confirm = "Do you wish to request new data?"
     };
 }
-
 <h2>Page2</h2>
-<h2>5 Movies:</h2>
+<h3>5 Movies:</h3>
 <table>
     <thead>
         <tr>
             <th>Name</th>
-         </tr>
+        </tr>
     </thead>
     <tbody class="movies5" id="tableBody">
         @Html.Action("Page2Data", new { name = Model })
     </tbody>
 </table>
 
-@using (Html.BeginForm())
+<hr />
+@using MvcUi.Helpers
+@using (Ajax.BeginForm(ajaxOpt))
 {
-    <div>
-        @Html.TextBox("name")
-        <button type="submit">Отобразить</button>
-    </div>
+    @Html.AutocompleteFor(name: "name", actionName: "Autocomplete", controllerName: "Movie")
+
+    <p><input type="submit" value="Найти" /></p>
 }
-<hr/>
+
+@Scripts.Render("~/Scripts/jquery")
+@Scripts.Render("~/Scripts/jquery.unobtrusive-ajax.min.js")
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+            
+        $('*[data-autocomplete-url]')
+            .each(function () {
+                $(this).autocomplete(
+                    {
+                        serviceUrl: $(this).data('autocomplete-url'),
+                    });
+                $(this).autocomplete().disable();
+                $(this).keyup(function () {
+                    if (this.value.length > 3) {
+
+                        $(this).autocomplete().enable();
+                    } else {
+                        $(this).autocomplete().disable();
+                    }
+                });
+            });
+    });
+</script>
+<hr />
 @using (Html.BeginForm("Create", "Movie", FormMethod.Post))
 {
     <p>Input name of movie: </p>
     @Html.TextBox("Name", "Input name")
     <p>Input release year:</p>
     @Html.TextBox("ReleaseYear", "Input year")
-    <p><input type="submit" value="Create" /></p>
+    <p><input type="submit" value="Создать" /></p>
 }

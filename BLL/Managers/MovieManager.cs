@@ -25,16 +25,15 @@ namespace BLL.Managers
 
         public IEnumerable<Movie> GetMovies(string name)
         {
-            return work.Movies.Items.ToList().Where(e => match(e, name));
+            return work.Movies.Items.Where(e => e.Name.Contains(name)).Take(5);
         }
         private bool match(Movie e, string name)
         {
-            return new Regex(string.Format(RegexPWordStartOnWord,name), RegexOptions.IgnoreCase).Match(e.Name).Success;
+            return new Regex(string.Format(RegexPWordStartOnWord, name), RegexOptions.IgnoreCase).Match(e.Name).Success;
 
         }
         public IEnumerable<Movie> GetMovies(int count)
         {
-
             return work.Movies.Items.Take(count);
         }
 
@@ -42,7 +41,7 @@ namespace BLL.Managers
         {
             work.Movies.Create(movie);
             work.Save();
-            return work.Movies.Items.ToList().LastOrDefault(e=>e.Name==movie.Name);
+            return work.Movies.Items.ToList().LastOrDefault(e => e.Name == movie.Name);
 
         }
 
@@ -55,6 +54,14 @@ namespace BLL.Managers
         {
             work.Movies.Update(movie);
             work.Save();
+        }
+
+        public IDictionary<string, object> GetAutoCompliteFormat(string query)
+        {
+            var responseData = new Dictionary<string, object>();
+            responseData.Add("query", query);
+            responseData.Add("suggestions", work.Movies.Items.Where(e => e.Name.Contains(query)).Take(5).Select(e => new { value = e.Name, data = e.ID }));
+            return responseData;
         }
     }
 }

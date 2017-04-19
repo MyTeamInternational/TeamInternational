@@ -31,19 +31,11 @@ namespace MvcUi.Infrastructure
         {
             var urlValues = filterContext.RouteData.Values;
             var controller = filterContext.Controller as IUrlFlow;
-            bool tryParse = false;
-            bool link = (urlValues["link"] != null) ? bool.TryParse(urlValues["link"].ToString(), out tryParse) : false;
             if (controller != null)
             {
-                if (!tryParse)
+                if (!controller.CanGo(urlValues["action"].ToString()))
                 {
-                    if (!link)
-                    {
-                        if (!controller.CanGo(urlValues["action"].ToString()))
-                        {
-                            filterContext.Result = controller.GetRedirect();
-                        }
-                    }
+                    filterContext.Result = controller.GetRedirect();
                 }
             }
         }

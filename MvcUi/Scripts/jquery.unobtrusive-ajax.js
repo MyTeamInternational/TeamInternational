@@ -22,7 +22,7 @@
 
 (function ($) {
     var data_click = "unobtrusiveAjaxClick",
-        data_target = "unobtrusiveAjaxClickTarget",
+        data_target = "unobtrusiveAjaxClickTarget"
         data_validation = "unobtrusiveValidation";
 
     function getFunction(code, argNames) {
@@ -70,9 +70,6 @@
                     update.appendChild(this);
                 });
                 break;
-            case "REPLACE-WITH":
-                $(update).replaceWith(data);
-                break;
             default:
                 $(update).html(data);
                 break;
@@ -92,13 +89,13 @@
         duration = parseInt(element.getAttribute("data-ajax-loading-duration"), 10) || 0;
 
         $.extend(options, {
+            context: element,
             type: element.getAttribute("data-ajax-method") || undefined,
             url: element.getAttribute("data-ajax-url") || undefined,
-            cache: !!element.getAttribute("data-ajax-cache"),
             beforeSend: function (xhr) {
                 var result;
                 asyncOnBeforeSend(xhr, method);
-                result = getFunction(element.getAttribute("data-ajax-begin"), ["xhr"]).apply(element, arguments);
+                result = getFunction(element.getAttribute("data-ajax-begin"), ["xhr"]).apply(this, arguments);
                 if (result !== false) {
                     loading.show(duration);
                 }
@@ -106,15 +103,13 @@
             },
             complete: function () {
                 loading.hide(duration);
-                getFunction(element.getAttribute("data-ajax-complete"), ["xhr", "status"]).apply(element, arguments);
+                getFunction(element.getAttribute("data-ajax-complete"), ["xhr", "status"]).apply(this, arguments);
             },
             success: function (data, status, xhr) {
                 asyncOnSuccess(element, data, xhr.getResponseHeader("Content-Type") || "text/html");
-                getFunction(element.getAttribute("data-ajax-success"), ["data", "status", "xhr"]).apply(element, arguments);
+                getFunction(element.getAttribute("data-ajax-success"), ["data", "status", "xhr"]).apply(this, arguments);
             },
-            error: function () {
-                getFunction(element.getAttribute("data-ajax-failure"), ["xhr", "status", "error"]).apply(element, arguments);
-            }
+            error: getFunction(element.getAttribute("data-ajax-failure"), ["xhr", "status", "error"])
         });
 
         options.data.push({ name: "X-Requested-With", value: "XMLHttpRequest" });

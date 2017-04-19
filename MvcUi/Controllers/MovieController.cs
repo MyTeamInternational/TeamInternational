@@ -12,6 +12,7 @@ using CONSTANTS;
 using BLL.Helpers;
 using System.Web;
 using System.IO;
+using System.Linq;
 
 namespace MvcUi.Controllers
 {
@@ -29,22 +30,38 @@ namespace MvcUi.Controllers
         }
         // GET: Movie
         [UrlAction]
-        public ActionResult Page2(string name = "")
+        public ActionResult Page2(string name = "All")
         {
 
             return View((object)name);
-            //returns the 3rd page Movie, main page for Movie redacting
-        }
+         }
 
-        public PartialViewResult Page2Data(string name = "")
+        public PartialViewResult Page2Data(string name = "All")
         {
-            IEnumerable<Movie> resList = manager.GetMovies(5);
-            if (name != "")
+           
+                IEnumerable<Movie> resList = manager.GetMovies(5);
+                if (name != "All")
+                {
+                    resList = manager.GetMovies(name);
+                }
+                var resModel = builder.GetVMList(resList);
+                return PartialView(resModel);
+                        
+        }
+        public ActionResult Autocomplete(string query = "")
+
+        {
+
+            if (Request.IsAjaxRequest())
             {
-                resList = manager.GetMovies(name);
+               
+
+                var res = Json(manager.GetAutoCompliteFormat(query), JsonRequestBehavior.AllowGet);
+                return   res;
+            }else
+            {
+                return GetRedirect();
             }
-            var resModel = builder.GetVMList(resList);
-            return PartialView(resModel);
         }
 
         [HttpPost]
@@ -99,6 +116,11 @@ namespace MvcUi.Controllers
 
         public bool CanGo(string action)
         {
+            //кеш на уровень репозитория что
+            //не на уровене контроллера
+            //giud field for image -> wallpers
+            //pagination ->masha 
+            //autocomptlite->pauluxxx
             bool go = User.Identity.IsAuthenticated;
             if (action == Constans_Cinema.ACCOUNT_LOGOUT)
             {

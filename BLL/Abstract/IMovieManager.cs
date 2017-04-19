@@ -10,6 +10,6 @@ namespace BLL.Abstract
         Movie CreateMovie(Movie movie);
         Movie GetMovie(int id);
         void Update(Movie movie);
-       // void UploadImage(System.Web.HttpPostedFileBase file);
+        IDictionary<string, object> GetAutoCompliteFormat(string query);
     }
 }
