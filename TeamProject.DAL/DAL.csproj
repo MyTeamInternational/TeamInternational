@@ -76,7 +76,6 @@
     <Compile Include="Entities\Interfaces\IEntity.cs" />
     <Compile Include="Entities\Movie.cs" />
     <Compile Include="Entities\User.cs" />
-    <Compile Include="Entities\View.cs" />
     <Compile Include="ICinemaWork.cs" />
     <Compile Include="Migrations\201704131149130_intial.cs" />
     <Compile Include="Migrations\201704131149130_intial.Designer.cs">
@@ -87,7 +86,6 @@
     <Compile Include="Repositories\Interfaces\IRepository.cs" />
     <Compile Include="Repositories\MovieRepository.cs" />
     <Compile Include="Repositories\UserRepository.cs" />
-    <Compile Include="Repositories\ViewRepository.cs" />
     <Compile Include="UnitOfWork.cs" />
   </ItemGroup>
   <ItemGroup>

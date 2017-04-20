@@ -27,10 +27,10 @@ namespace MvcUi.Controllers
 
         public IHomeUrlFlow FLow { get { return urlFlow; } }
 
-        public MovieController(IMovieManager manager, IMovieVMBuilder builder,IHomeUrlFlow flow)
+        public MovieController(IMovieManager manager, IMovieVMBuilder builder,IHomeUrlFlow flow, IPictureManager pictureManager)
         {
             this.pictureManager = pictureManager;
-            this.movieManager = movieManager;
+            this.movieManager = manager;
             this.builder = builder;
             this.urlFlow = flow;
         }
@@ -44,10 +44,10 @@ namespace MvcUi.Controllers
         public PartialViewResult Page2Data(string name = "All")
         {
            
-                IEnumerable<Movie> resList = manager.GetMovies(5);
+                IEnumerable<Movie> resList = movieManager.GetMovies(5);
                 if (name != "All")
                 {
-                    resList = manager.GetMovies(name);
+                    resList = movieManager.GetMovies(name);
                 }
                 var resModel = builder.GetVMList(resList);
                 return PartialView(resModel);
@@ -61,7 +61,7 @@ namespace MvcUi.Controllers
             {
                
 
-                var res = Json(manager.GetAutoCompliteFormat(query), JsonRequestBehavior.AllowGet);
+                var res = Json(movieManager.GetAutoCompliteFormat(query), JsonRequestBehavior.AllowGet);
                 return   res;
             }else
             {
@@ -80,7 +80,7 @@ namespace MvcUi.Controllers
 
         public ActionResult Page3(int id)
         {
-            Movie m = manager.GetMovie(id);
+            Movie m = movieManager.GetMovie(id);
             if (m != null)
             {
                 return View(m);

@@ -29,10 +29,11 @@ namespace BLL.Managers
         {
             return work.Movies.Items.Where(e => e.Name.Contains(name)).Take(5);
         }
-        {
-            return new Regex(string.Format(RegexPWordStartOnWord, name), RegexOptions.IgnoreCase).Match(e.Name).Success;
+        //public 
+        //{
+        //    return new Regex(string.Format(RegexPWordStartOnWord, name), RegexOptions.IgnoreCase).Match(e.Name).Success;
 
-        }
+        //}
         public IEnumerable<Movie> GetMovies(int count)
         {
             return work.Movies.Items.Take(count);
