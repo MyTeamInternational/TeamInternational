@@ -353,3 +353,7 @@
 2017-04-20 08:06:31.9179|INFO|MvcUi.MvcApplication|Application Error
 2017-04-20 08:07:29.0272|INFO|MvcUi.MvcApplication|Application Error
 2017-04-20 08:07:52.3704|INFO|MvcUi.MvcApplication|Application Error
+2017-04-20 14:59:19.1238|INFO|MvcUi.App_Start.PreStartAppDBCreate|Application PreStart
+2017-04-20 14:59:34.5227|INFO|MvcUi.MvcApplication|Application Start
+2017-04-20 14:59:42.4222|INFO|MvcUi.MvcApplication|Application Init
+2017-04-20 14:59:42.7542|INFO|MvcUi.MvcApplication|Application Init
