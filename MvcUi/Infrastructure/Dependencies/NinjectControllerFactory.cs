@@ -53,6 +53,7 @@ namespace MvcUi.Infrastructure
             kernel.Bind<IEmailService>().To<MyEmailSender>();
             kernel.Bind<IMovieManager>().To<MovieManager>();
             kernel.Bind<IMovieVMBuilder>().To<MovieVMBuilder>();
+            kernel.Bind<IPictureManager>().To<PictureManager>();
         }
     }
 }

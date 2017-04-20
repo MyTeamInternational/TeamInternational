@@ -13,11 +13,9 @@ namespace TeamProject.DAL.Repositories
     public class MovieRepository : IRepository<Movie>
     {
         private CinemaContext db;
-        public IQueryable<Movie> Items
-        {
-            get
-            { return db.Movies; }
-        }
+        public IQueryable<Movie> Items 
+            => db.Movies; 
+        
 
         // Maybe we should create new CinemaContext();
         public MovieRepository(CinemaContext db)
@@ -25,7 +23,7 @@ namespace TeamProject.DAL.Repositories
             this.db = db;
         }
 
-        public void Create(Movie movie)
+        public Movie Create(Movie movie)
              => db.Movies.Add(movie);
 
         public void Delete(Movie movie)
@@ -38,10 +36,6 @@ namespace TeamProject.DAL.Repositories
             => db.Movies.SingleOrDefault(movie => movie.ID == id);
 
         public void Update(Movie movie)
-
-        {
-            db.Movies.AddOrUpdate(movie);
-          //  db.Entry<Movie>(movie).State = EntityState.Modified;
-        }
+            => db.Set<Movie>().AddOrUpdate(movie);
     }
 }

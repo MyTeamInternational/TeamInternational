@@ -1,0 +1,7 @@
+2017-04-15 14:07:15.7054|INFO|MvcUi.App_Start.PreStartAppDBCreate|Application PreStart
+2017-04-15 14:07:17.0485|INFO|MvcUi.MvcApplication|Application Start
+2017-04-15 14:07:17.5297|INFO|MvcUi.MvcApplication|Application Init
+2017-04-15 14:07:17.8842|INFO|MvcUi.MvcApplication|Application Init
+2017-04-15 14:21:56.2089|INFO|MvcUi.MvcApplication|Application Dispose
+2017-04-15 14:21:56.2089|INFO|MvcUi.MvcApplication|Application End
+2017-04-15 14:21:56.2089|INFO|MvcUi.MvcApplication|Application Dispose

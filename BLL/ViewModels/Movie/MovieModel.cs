@@ -12,6 +12,6 @@ namespace BLL.ViewModels.Movie
         public MovieModel()
         {
         }
-        public ICollection<View> Views { get; set; }
+        public ICollection<Picture> Pictures { get; set; }
     }
 }

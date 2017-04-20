@@ -19,8 +19,6 @@ namespace TeamProject.DAL.Entities
 
         public int ReleaseYear { get; set; }
 
-        public string ImagePath { get; set; }
-
-        public ICollection<View> Views { get; set; }
+        public ICollection<Picture> Pictures { get; set; }
     }
 }

@@ -8,7 +8,7 @@ namespace TeamProject.DAL
     {
         UserRepository Users { get; }
         IRepository<Movie> Movies { get; }
-        IRepository<View> Views { get; }
+        IRepository<Picture> Pictures { get; }
         void Save();
     }
 

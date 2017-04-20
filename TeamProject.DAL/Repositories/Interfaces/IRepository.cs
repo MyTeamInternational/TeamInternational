@@ -12,7 +12,7 @@ namespace TeamProject.DAL.Repositories.Interfaces
         IQueryable<T> Items { get; }
         IEnumerable<T> GetAll();
         T Get(int id);
-        void Create(T item);
+        T Create(T item);
         void Update(T item);
         void Delete(T item);
     }

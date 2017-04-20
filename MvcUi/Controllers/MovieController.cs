@@ -6,8 +6,6 @@ using Ninject;
 using System.Collections.Generic;
 using System.Web.Mvc;
 using TeamProject.DAL.Entities;
-using TeamProject.DAL.Repositories;
-using TeamProject.DAL;
 using CONSTANTS;
 using BLL.Helpers;
 using System.Web;
@@ -19,7 +17,9 @@ namespace MvcUi.Controllers
     public class MovieController : Controller, IUrlFlow
     {
         [Inject]
-        IMovieManager manager;
+        IPictureManager pictureManager;
+        [Inject]
+        IMovieManager movieManager;
         [Inject]
         IMovieVMBuilder builder;
         [Inject]
@@ -29,7 +29,8 @@ namespace MvcUi.Controllers
 
         public MovieController(IMovieManager manager, IMovieVMBuilder builder,IHomeUrlFlow flow)
         {
-            this.manager = manager;
+            this.pictureManager = pictureManager;
+            this.movieManager = movieManager;
             this.builder = builder;
             this.urlFlow = flow;
         }
@@ -37,7 +38,6 @@ namespace MvcUi.Controllers
         [UrlAction]
         public ActionResult Page2(string name = "All")
         {
-
             return View((object)name);
          }
 
@@ -72,7 +72,7 @@ namespace MvcUi.Controllers
         [HttpPost]
         public ActionResult Create(MovieModel movieModel)
         {
-            Movie movie = manager.CreateMovie(movieModel.GetByModel());
+            Movie movie = movieManager.CreateMovie(movieModel.GetByModel());
             return RedirectToRoute(Constans_Cinema.DEFAULT_ROUTE, new { action = Constans_Cinema.MOVIE_EDIT, controller = Constans_Cinema.MOVIE_CONTROLLER, id = movie.ID });
         }
         [HttpGet]
@@ -91,31 +91,10 @@ namespace MvcUi.Controllers
             }
         }
         [HttpPost]
-        public ActionResult Update(Movie movie, HttpPostedFileBase file)
+        public ActionResult Update(Movie movie, List<HttpPostedFileBase> files)
         {
-            var path = "";
-            var relativePath = "";
-            if (file != null)
-            {
-                if (file.ContentLength > 0)
-                {
-                    if (Path.GetExtension(file.FileName).ToLower() == ".jpg"
-                        || Path.GetExtension(file.FileName).ToLower() == ".png"
-                        || Path.GetExtension(file.FileName).ToLower() == ".gif"
-                        || Path.GetExtension(file.FileName).ToLower() == ".jpeg")
-                    {
-                        path = Path.Combine(Server.MapPath("~/Content/Images"), file.FileName);
-                        relativePath = "~/Content/Images/" + file.FileName;
-                        file.SaveAs(path);
-                        ViewBag.UploadSuccess = true;
-
-                    }
-                }
-            }
-            movie.ImagePath = relativePath;
-            // manager.UploadImage(file);
-            manager.Update(movie);
-            FLow.StatusFlow = MyStatusFlow.Smile;
+            pictureManager.CreatePictures(movie.ID, files);
+            movieManager.Update(movie);
             return RedirectToAction(Constans_Cinema.LAST_PAGE_INDEX, Constans_Cinema.LAST_PAGE_CONTROLLER);
         }
 
