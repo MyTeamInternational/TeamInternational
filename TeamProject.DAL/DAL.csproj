@@ -70,9 +70,9 @@
     <Compile Include="Entities\Picture.cs" />
     <Compile Include="Entities\User.cs" />
     <Compile Include="ICinemaWork.cs" />
-    <Compile Include="Migrations\201704181719141_Initial.cs" />
-    <Compile Include="Migrations\201704181719141_Initial.Designer.cs">
-      <DependentUpon>201704181719141_Initial.cs</DependentUpon>
+    <Compile Include="Migrations\201704200720545_init.cs" />
+    <Compile Include="Migrations\201704200720545_init.Designer.cs">
+      <DependentUpon>201704200720545_init.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -89,8 +89,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201704181719141_Initial.resx">
-      <DependentUpon>201704181719141_Initial.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201704200720545_init.resx">
+      <DependentUpon>201704200720545_init.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

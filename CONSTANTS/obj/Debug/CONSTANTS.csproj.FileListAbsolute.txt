@@ -7,3 +7,8 @@ E:\Programs\Pauluxxx\CONSTANTS\bin\Debug\CONSTANTS.dll
 E:\Programs\Pauluxxx\CONSTANTS\bin\Debug\CONSTANTS.pdb
 E:\Programs\Pauluxxx\CONSTANTS\obj\Debug\CONSTANTS.dll
 E:\Programs\Pauluxxx\CONSTANTS\obj\Debug\CONSTANTS.pdb
+C:\Users\paulu\OneDrive\Документы\Visual Studio 2015\Projects\TeamInternational\CONSTANTS\bin\Debug\CONSTANTS.dll
+C:\Users\paulu\OneDrive\Документы\Visual Studio 2015\Projects\TeamInternational\CONSTANTS\bin\Debug\CONSTANTS.pdb
+C:\Users\paulu\OneDrive\Документы\Visual Studio 2015\Projects\TeamInternational\CONSTANTS\obj\Debug\CONSTANTS.csprojResolveAssemblyReference.cache
+C:\Users\paulu\OneDrive\Документы\Visual Studio 2015\Projects\TeamInternational\CONSTANTS\obj\Debug\CONSTANTS.dll
+C:\Users\paulu\OneDrive\Документы\Visual Studio 2015\Projects\TeamInternational\CONSTANTS\obj\Debug\CONSTANTS.pdb

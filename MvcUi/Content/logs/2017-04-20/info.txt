@@ -1,0 +1,15 @@
+2017-04-20 10:00:15.7732|INFO|MvcUi.App_Start.PreStartAppDBCreate|Application PreStart
+2017-04-20 10:00:28.2726|INFO|MvcUi.MvcApplication|Application Start
+2017-04-20 10:00:31.1869|INFO|MvcUi.MvcApplication|Application Init
+2017-04-20 10:00:31.2421|INFO|MvcUi.MvcApplication|Application Init
+2017-04-20 10:22:02.8792|INFO|MvcUi.App_Start.PreStartAppDBCreate|Application PreStart
+2017-04-20 10:22:15.1065|INFO|MvcUi.MvcApplication|Application Start
+2017-04-20 10:22:17.6430|INFO|MvcUi.MvcApplication|Application Init
+2017-04-20 10:22:17.7001|INFO|MvcUi.MvcApplication|Application Init
+2017-04-20 10:23:18.3128|INFO|MvcUi.MvcApplication|Application Dispose
+2017-04-20 10:23:18.3128|INFO|MvcUi.MvcApplication|Application End
+2017-04-20 10:23:18.3128|INFO|MvcUi.MvcApplication|Application Dispose
+2017-04-20 10:23:23.8603|INFO|MvcUi.App_Start.PreStartAppDBCreate|Application PreStart
+2017-04-20 10:23:25.0859|INFO|MvcUi.MvcApplication|Application Start
+2017-04-20 10:23:25.3215|INFO|MvcUi.MvcApplication|Application Init
+2017-04-20 10:23:25.3746|INFO|MvcUi.MvcApplication|Application Init
