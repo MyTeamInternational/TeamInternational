@@ -7,6 +7,7 @@ using System.Web.Security;
 using TeamProject.DAL.Entities;
 using System.Linq;
 using CONSTANTS;
+using MvcUi.Infrastructure.Auth;
 
 namespace MvcUi.Controllers
 {
@@ -15,9 +16,23 @@ namespace MvcUi.Controllers
     {
         [Inject]
         private IAccountManager accountManager;
-        public AccountController(IAccountManager accountManager)
+        [Inject]
+        public IAuthentication Auth { get; set; }
+        [Inject]
+        private IHomeUrlFlow urlFlow;
+        public IHomeUrlFlow FLow { get { return urlFlow; } }
+        public User CurrentUser
+        {
+            get
+            {
+                return ((IUserProvider)Auth.CurrentUser.Identity).User;
+            }
+        }
+        public AccountController(IAccountManager accountManager, IAuthentication Auth,IHomeUrlFlow flow)
         {
             this.accountManager = accountManager;
+            this.Auth = Auth;
+            this.urlFlow = flow;
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -25,14 +40,15 @@ namespace MvcUi.Controllers
         {
             if (ModelState.IsValid)
             {
-                User user = accountManager.GetUser(model.Name);
+                var user = Auth.Login(model.Name, model.Password, false);
+                //User user = accountManager.GetUser(model.Name);
                 if (user != null)
                 {
                     if (accountManager.CheckUserPassword(user, model.Password))
                     {
                         if (user.ConfirmedEmail)
                         {
-                            FormsAuthentication.SetAuthCookie(model.Name, true);
+                            //FormsAuthentication.SetAuthCookie(model.Name, true);
                             return RedirectToAction(Constans_Cinema.HOME_PAGE2, Constans_Cinema.HOME_CONTROLLER);//TODO вопрос а что если нужно эти названия хранить в отдельном класе перечисления?
                         }
                         else
@@ -40,12 +56,12 @@ namespace MvcUi.Controllers
                     }
                     else
                     {
-                        ModelState.AddModelError("", "Не верен пароль");
+                        ModelState["Password"].Errors.Add("Не верен пароль");
                     }
                 }
                 else
                 {
-                    ModelState.AddModelError("", "Пользователя с таким логином нет");// как это переделывать под мультиязичный сайт
+                    ModelState["Name"].Errors.Add("Пользователя с таким логином нет");// как это переделывать под мультиязичный сайт
                 }
             }
             return View("/Views/" + Constans_Cinema.HOME_CONTROLLER + "/" + Constans_Cinema.HOME_INDEX + ".cshtml", new Page1Model { LoginUser = model });
@@ -100,8 +116,9 @@ namespace MvcUi.Controllers
         [UrlAction]
         public ActionResult LogOut()
         {
-            FormsAuthentication.SignOut();
-            HomeController.FLow.StatusFlow = MyStatusFlow.Not_Registred;
+            //    FormsAuthentication.SignOut();
+            //    HomeController.FLow.StatusFlow = MyStatusFlow.Not_Registred;
+            Auth.LogOut();
             return RedirectToAction(Constans_Cinema.HOME_INDEX, Constans_Cinema.HOME_CONTROLLER);
         }
         [UrlAction]
@@ -109,7 +126,7 @@ namespace MvcUi.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
-                return View(User);
+                return PartialView(Constans_Cinema.ACCOUNT_CONTROLLER+"\\"+Constans_Cinema.ACCOUNT_USERNAME,User);
             }
             return View();
         }
@@ -125,7 +142,7 @@ namespace MvcUi.Controllers
                     accountManager.UpdateUser(user);
                     FormsAuthentication.SetAuthCookie(user.Name, true);
                     TempData["messageEmail"] = "Успешно подтвержден имейл";
-                    HomeController.FLow.StatusFlow = MyStatusFlow.Registred;
+                    FLow.StatusFlow = MyStatusFlow.Registred;
                     return View(Constans_Cinema.ACCOUNT_CONFIRM);
                 }
                 else
@@ -140,18 +157,11 @@ namespace MvcUi.Controllers
         }
         public bool CanGo(string action)
         {
-            bool go = User.Identity.IsAuthenticated;
-            if (action==Constans_Cinema.ACCOUNT_LOGOUT)
-            {
-                go = !User.Identity.IsAuthenticated;
-            }
-            HomeController.FLow.StatusFlow =(go)?MyStatusFlow.Registred:MyStatusFlow.Not_Registred;
-
-            return HomeController.FLow.CanGo(action);
+            return FLow.CanGo(action);
         }
         public ActionResult GetRedirect()
         {
-            return new RedirectResult(HomeController.FLow.GetRedirect());
+            return new RedirectResult(FLow.GetRedirect());
         }
     }
 }

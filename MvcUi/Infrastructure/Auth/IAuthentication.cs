@@ -5,6 +5,7 @@ using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
+using TeamProject.DAL.Entities;
 
 namespace MvcUi.Infrastructure.Auth
 {

@@ -14,7 +14,7 @@ namespace TeamProject.DAL
     {
         private CinemaContext db;
 
-        private IRepository<User> userRepository;
+        private UserRepository userRepository;
         private IRepository<Movie> movieRepository;
         private IRepository<View> viewRepository;
 
@@ -23,7 +23,7 @@ namespace TeamProject.DAL
             db = new CinemaContext();
         }
 
-        public IRepository<User> Users
+        public UserRepository Users
             => userRepository ?? (userRepository = new UserRepository(db));
 
         public IRepository<Movie> Movies

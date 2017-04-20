@@ -4,6 +4,8 @@ using MvcUi.Infrastructure;
 using Ninject;
 using System.Web.Mvc;
 using CONSTANTS;
+using MvcUi.Infrastructure.Auth;
+using TeamProject.DAL.Entities;
 
 //1)demo class diagramm 
 //presentation pps video
@@ -27,9 +29,9 @@ namespace MvcUi.Controllers
     public class HomeController : Controller, IUrlFlow
     {
         [Inject]
-        private static IHomeUrlFlow urlFlow;
-
-        public static IHomeUrlFlow FLow { get { return HomeController.urlFlow; } }
+        private IHomeUrlFlow urlFlow;
+        
+        public  IHomeUrlFlow FLow { get { return urlFlow; } }
 
         public HomeController(IHomeUrlFlow flow)
         {
@@ -37,14 +39,7 @@ namespace MvcUi.Controllers
         }
         public bool CanGo(string action)
         {
-            bool go = User.Identity.IsAuthenticated;
-            if (action == Constans_Cinema.ACCOUNT_LOGOUT)
-            {
-                go = !User.Identity.IsAuthenticated;
-            }
-            HomeController.FLow.StatusFlow = (go) ? MyStatusFlow.Registred : MyStatusFlow.Not_Registred;
-
-            return HomeController.FLow.CanGo(action);
+            return FLow.CanGo(action);
         }
 
         public ActionResult GetRedirect()
@@ -62,6 +57,11 @@ namespace MvcUi.Controllers
             return RedirectToAction(Constans_Cinema.MOVIE_INDEX, Constans_Cinema.MOVIE_CONTROLLER);
         }
 
+        [UrlAction]
+        public ActionResult Page4()
+        {
+            return RedirectToAction(Constans_Cinema.LAST_PAGE_INDEX, Constans_Cinema.LAST_PAGE_CONTROLLER);
+        }
     }
 
 

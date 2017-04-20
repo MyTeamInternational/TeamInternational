@@ -1,5 +1,7 @@
-﻿using CONSTANTS;
+﻿using BLL.Abstract;
+using CONSTANTS;
 using MvcUi.Infrastructure;
+using Ninject;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,12 +12,19 @@ namespace MvcUi.Controllers
 {
     public class LastPageController : Controller, IUrlFlow
     {
+        [Inject]
+        private IHomeUrlFlow urlFlow;
+        public IHomeUrlFlow FLow { get { return urlFlow; } }
+        public LastPageController(IHomeUrlFlow flow)
+        {
+            this.urlFlow = flow;
+        }
         public bool CanGo(string action)
-            => HomeController.FLow.CanGo(action);
+            => FLow.CanGo(action);
 
 
         public ActionResult GetRedirect()
-            => new RedirectResult(HomeController.FLow.GetRedirect());
+            => new RedirectResult(FLow.GetRedirect());
 
         // GET: LastPage
         [UrlAction]

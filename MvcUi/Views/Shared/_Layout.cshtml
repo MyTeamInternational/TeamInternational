@@ -12,7 +12,7 @@
 <body>
     <div class="container">
         <div class="navbar-header navbar-right">
-            @{Html.RenderPartial("Account/UserName", User);}
+            @{Html.Action(CONSTANTS.Constans_Cinema.ACCOUNT_USERNAME,CONSTANTS.Constans_Cinema.ACCOUNT_CONTROLLER);}
         </div>
         <div class="body-content">
             @RenderBody()

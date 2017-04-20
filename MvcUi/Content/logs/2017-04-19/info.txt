@@ -434,3 +434,12 @@
 2017-04-19 18:49:20.9815|INFO|MvcUi.MvcApplication|Application Error
 2017-04-19 18:49:23.0229|INFO|MvcUi.MvcApplication|Application Error
 2017-04-19 18:49:46.8381|INFO|MvcUi.MvcApplication|Application Error
+2017-04-19 18:50:45.8155|INFO|MvcUi.MvcApplication|Application Dispose
+2017-04-19 18:51:34.5768|INFO|MvcUi.MvcApplication|Application Dispose
+2017-04-19 18:51:34.5768|INFO|MvcUi.MvcApplication|Application End
+2017-04-19 18:51:34.5768|INFO|MvcUi.MvcApplication|Application Dispose
+2017-04-19 18:51:36.1224|INFO|MvcUi.App_Start.PreStartAppDBCreate|Application PreStart
+2017-04-19 18:51:36.7666|INFO|MvcUi.MvcApplication|Application Start
+2017-04-19 18:51:36.9020|INFO|MvcUi.MvcApplication|Application Init
+2017-04-19 18:51:36.9160|INFO|MvcUi.MvcApplication|Application Init
+2017-04-19 18:51:36.9581|INFO|MvcUi.MvcApplication|Application Init

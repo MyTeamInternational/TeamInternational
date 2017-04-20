@@ -30,7 +30,7 @@ namespace MvcUi.Infrastructure
         public void OnActionExecuting(ActionExecutingContext filterContext)
         {
             var urlValues = filterContext.RouteData.Values;
-            var controller = filterContext.Controller as IUrlFlow;
+                var controller = filterContext.Controller as IUrlFlow;
             if (controller != null)
             {
                 if (!controller.CanGo(urlValues["action"].ToString()))

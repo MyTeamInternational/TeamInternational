@@ -5,8 +5,7 @@
     AjaxOptions ajaxOpt = new AjaxOptions
     {
         UpdateTargetId = "tableBody",
-        Url = Url.Action("Page2Data"),
-        Confirm = "Do you wish to request new data?"
+        Url = Url.Action("Page2Data")
     };
 }
 <h2>Page2</h2>
@@ -21,7 +20,6 @@
         @Html.Action("Page2Data", new { name = Model })
     </tbody>
 </table>
-
 <hr />
 @using MvcUi.Helpers
 @using (Ajax.BeginForm(ajaxOpt))
@@ -46,7 +44,7 @@
                     });
                 $(this).autocomplete().disable();
                 $(this).keyup(function () {
-                    if (this.value.length > 3) {
+                    if (this.value.length > 2) {
 
                         $(this).autocomplete().enable();
                     } else {

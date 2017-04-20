@@ -22,11 +22,16 @@ namespace MvcUi.Controllers
         IMovieManager manager;
         [Inject]
         IMovieVMBuilder builder;
+        [Inject]
+        private IHomeUrlFlow urlFlow;
 
-        public MovieController(IMovieManager manager, IMovieVMBuilder builder)
+        public IHomeUrlFlow FLow { get { return urlFlow; } }
+
+        public MovieController(IMovieManager manager, IMovieVMBuilder builder,IHomeUrlFlow flow)
         {
             this.manager = manager;
             this.builder = builder;
+            this.urlFlow = flow;
         }
         // GET: Movie
         [UrlAction]
@@ -82,7 +87,7 @@ namespace MvcUi.Controllers
             }
             else
             {
-                return new RedirectResult(HomeController.FLow.GetRedirect());
+                return new RedirectResult(FLow.GetRedirect());
             }
         }
         [HttpPost]
@@ -110,7 +115,7 @@ namespace MvcUi.Controllers
             movie.ImagePath = relativePath;
             // manager.UploadImage(file);
             manager.Update(movie);
-            HomeController.FLow.StatusFlow = MyStatusFlow.Smile;
+            FLow.StatusFlow = MyStatusFlow.Smile;
             return RedirectToAction(Constans_Cinema.LAST_PAGE_INDEX, Constans_Cinema.LAST_PAGE_CONTROLLER);
         }
 
@@ -120,20 +125,20 @@ namespace MvcUi.Controllers
             //не на уровене контроллера
             //giud field for image -> wallpers
             //pagination ->masha 
-            //autocomptlite->pauluxxx
-            bool go = User.Identity.IsAuthenticated;
-            if (action == Constans_Cinema.ACCOUNT_LOGOUT)
-            {
-                go = !User.Identity.IsAuthenticated;
-            }
-            HomeController.FLow.StatusFlow = (go) ? MyStatusFlow.Registred : MyStatusFlow.Not_Registred;
+            ////autocomptlite->pauluxxx
+            //bool go = User.Identity.IsAuthenticated;
+            //if (action == Constans_Cinema.ACCOUNT_LOGOUT)
+            //{
+            //    go = !User.Identity.IsAuthenticated;
+            //}
+            //HomeController.FLow.StatusFlow = (go) ? MyStatusFlow.Registred : MyStatusFlow.Not_Registred;
 
-            return HomeController.FLow.CanGo(action);
+            return FLow.CanGo(action);
         }
 
         public ActionResult GetRedirect()
         {
-            return new RedirectResult(HomeController.FLow.GetRedirect());
+            return new RedirectResult(FLow.GetRedirect());
         }
     }
 }

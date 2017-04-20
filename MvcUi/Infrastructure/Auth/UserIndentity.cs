@@ -1,6 +1,13 @@
-﻿namespace MvcUi.Infrastructure.Auth
+﻿using CONSTANTS;
+using MvcUi.Controllers;
+using System.Security.Principal;
+using TeamProject.DAL.Entities;
+using TeamProject.DAL.Repositories;
+
+namespace MvcUi.Infrastructure.Auth
 {
-    public class UserIndentity : IIdentity
+    public class UserIndentity : IIdentity, IUserProvider
+        /// current user
     {
         public User User { get; set; }
 
@@ -33,11 +40,11 @@
             }
         }
 
-        public void Init(string email, IRepository repository)
+        public void Init(string email, UserRepository repository)
         {
             if (!string.IsNullOrEmpty(email))
-            {
-                User = repository.GetUser(email);
+            {               
+                User = repository.GetByEmail(email);
             }
         }
     }

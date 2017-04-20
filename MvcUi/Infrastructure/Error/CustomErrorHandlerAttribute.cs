@@ -7,7 +7,7 @@ namespace MvcUi.Infrastructure
     {
         public override void OnException(ExceptionContext filterContext)
             {
-            filterContext.ExceptionHandled = true;
+                filterContext.ExceptionHandled = true;
 
             if (filterContext.HttpContext.Request.IsAjaxRequest())
             {

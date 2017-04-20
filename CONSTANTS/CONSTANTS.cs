@@ -10,6 +10,7 @@
         public const string ACCOUNT_CONFIRM = "Confirm";
         public const string ACCOUNT_LOGOUT = "LogOut";
         public const string ACCOUNT_REGISTRATION = "Register";
+        public const string ACCOUNT_USERNAME = "UserName";
 
         public const string HOME_INDEX = "Page1";
         public const string HOME_PAGE2 = "Page2";

@@ -6,7 +6,7 @@ namespace TeamProject.DAL
 {
     public interface ICinemaWork
     {
-        IRepository<User> Users { get; }
+        UserRepository Users { get; }
         IRepository<Movie> Movies { get; }
         IRepository<View> Views { get; }
         void Save();

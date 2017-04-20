@@ -1,6 +1,6 @@
-﻿@model System.Security.Principal.GenericPrincipal
+﻿@model  MvcUi.Infrastructure.Auth.UserProvider
 @Model.Identity.Name
-@if (Model.Identity.IsAuthenticated)
+@if (Model!=null)
 {
-    @Html.ActionLink("Выйти", "LogOut", "Account")
+    @Html.ActionLink("Выйти", "LogOut", CONSTANTS.Constans_Cinema.ACCOUNT_CONTROLLER)
 }

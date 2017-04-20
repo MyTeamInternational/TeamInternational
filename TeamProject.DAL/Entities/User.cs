@@ -18,5 +18,23 @@ namespace TeamProject.DAL.Entities
         public string Password { get; set; }
         public bool ConfirmedEmail { get; set; }
         public ICollection<View> Views { get; set; }
+        public bool InRoles(string roles)
+        {
+            if (string.IsNullOrWhiteSpace(roles))
+            {
+                return false;
+            }
+
+            var rolesArray = roles.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries);
+            foreach (var role in rolesArray)
+            {
+              //  var hasRole = UserRoles.Any(p => string.Compare(p.Role.Code, role, true) == 0);
+                if (true)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
     }
 }

@@ -3,11 +3,22 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Security.Principal;
+using TeamProject.DAL.Entities;
+using TeamProject.DAL.Repositories.Interfaces;
+using TeamProject.DAL;
+using System.Web.Security;
+using MvcUi.Controllers;
+using CONSTANTS;
+using BLL.Abstract;
 
 namespace MvcUi.Infrastructure.Auth
 {
     public class CustomAuthentication : IAuthentication
     {
+        [Inject]
+        public IHomeUrlFlow urlFlow;
+        public IHomeUrlFlow FLow { get { return urlFlow; } }
         private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
 
         private const string cookieName = "__AUTH_COOKIE";
@@ -15,13 +26,16 @@ namespace MvcUi.Infrastructure.Auth
         public HttpContext HttpContext { get; set; }
 
         [Inject]
-        public IRepository Repository { get; set; }
+        ICinemaWork work;
+       
 
+        public CustomAuthentication(ICinemaWork work,IHomeUrlFlow flow) { this.work = work;
+            this.urlFlow = flow; }
         #region IAuthentication Members
 
         public User Login(string userName, string Password, bool isPersistent)
         {
-            User retUser = Repository.Login(userName, Password);
+            User retUser = work.Users.GetByEmailAndPassword(userName,Password);
             if (retUser != null)
             {
                 CreateCookie(userName, isPersistent);
@@ -31,7 +45,7 @@ namespace MvcUi.Infrastructure.Auth
 
         public User Login(string userName)
         {
-            User retUser = Repository.Users.FirstOrDefault(p => string.Compare(p.Email, userName, true) == 0);
+            User retUser = work.Users.Items.FirstOrDefault(p => string.Compare(p.Email, userName, true) == 0);
             if (retUser != null)
             {
                 CreateCookie(userName);
@@ -59,7 +73,10 @@ namespace MvcUi.Infrastructure.Auth
                 Value = encTicket,
                 Expires = DateTime.Now.Add(FormsAuthentication.Timeout)
             };
+
             HttpContext.Response.Cookies.Set(AuthCookie);
+            FLow.StatusFlow = MyStatusFlow.Registred;
+
         }
 
         public void LogOut()
@@ -68,9 +85,9 @@ namespace MvcUi.Infrastructure.Auth
             if (httpCookie != null)
             {
                 httpCookie.Value = string.Empty;
+                FLow.StatusFlow = MyStatusFlow.Not_Registred;
             }
         }
-
         private IPrincipal _currentUser;
 
         public IPrincipal CurrentUser
@@ -85,7 +102,8 @@ namespace MvcUi.Infrastructure.Auth
                         if (authCookie != null && !string.IsNullOrEmpty(authCookie.Value))
                         {
                             var ticket = FormsAuthentication.Decrypt(authCookie.Value);
-                            _currentUser = new UserProvider(ticket.Name, Repository);
+                            _currentUser = new UserProvider(ticket.Name, work.Users);
+                            urlFlow.StatusFlow = MyStatusFlow.Registred;
                         }
                         else
                         {
@@ -101,6 +119,7 @@ namespace MvcUi.Infrastructure.Auth
                 return _currentUser;
             }
         }
+
         #endregion
     }
 }

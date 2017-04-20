@@ -33,6 +33,9 @@ namespace TeamProject.DAL.Repositories
         public void Delete(User user)
             => db.Users.Remove(user);
 
+        public User Login(string userName, string password)
+        => db.Users.FirstOrDefault(e=>e.Name==userName&&e.Password==password);
+
         public IEnumerable<User> GetAll()
             => db.Users.ToList();
 

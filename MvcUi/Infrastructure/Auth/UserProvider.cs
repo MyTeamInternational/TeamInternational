@@ -1,8 +1,9 @@
 ﻿using System.Security.Principal;
+using TeamProject.DAL.Repositories;
 
 namespace MvcUi.Infrastructure.Auth
 {
-    internal class UserProvider : IPrincipal
+    public class UserProvider : IPrincipal
     {
         private UserIndentity userIdentity { get; set; }
 
@@ -28,7 +29,7 @@ namespace MvcUi.Infrastructure.Auth
         #endregion
 
 
-        public UserProvider(string name, IRepository repository)
+        public UserProvider(string name, UserRepository repository)
         {
             userIdentity = new UserIndentity();
             userIdentity.Init(name, repository);
@@ -40,3 +41,4 @@ namespace MvcUi.Infrastructure.Auth
             return userIdentity.Name;
         }
     }
+}

@@ -22,8 +22,9 @@ namespace MvcUi
         {
             //как лучше логировать и какие изменения должын логинится насколько подробно?
             logger.Info("Application Start");
-
-            ControllerBuilder.Current.SetControllerFactory(new NinjectControllerFactory());
+            var Ninject = new NinjectControllerFactory();
+            ControllerBuilder.Current.SetControllerFactory(Ninject);
+            DependencyResolver.SetResolver(Ninject);
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
