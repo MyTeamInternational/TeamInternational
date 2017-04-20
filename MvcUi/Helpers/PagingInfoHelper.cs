@@ -1,4 +1,4 @@
-﻿using MvcUi.Models;
+﻿using BLL.ViewModels;
 
 namespace MvcUi.Helpers
 {
