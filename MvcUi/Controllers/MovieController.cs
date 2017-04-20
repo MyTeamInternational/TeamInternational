@@ -13,6 +13,8 @@ using BLL.Helpers;
 using System.Web;
 using System.IO;
 using System.Linq;
+using BLL.ViewModels;
+using MvcUi.Helpers;
 
 namespace MvcUi.Controllers
 {
@@ -24,8 +26,9 @@ namespace MvcUi.Controllers
         IMovieVMBuilder builder;
         [Inject]
         private IHomeUrlFlow urlFlow;
-
         public IHomeUrlFlow FLow { get { return urlFlow; } }
+
+        int PageSize = 5;
 
         public MovieController(IMovieManager manager, IMovieVMBuilder builder,IHomeUrlFlow flow)
         {
@@ -41,18 +44,22 @@ namespace MvcUi.Controllers
             return View((object)name);
          }
 
-        public PartialViewResult Page2Data(string name = "All")
+public PartialViewResult Page2Data(string name = "All", int page = 1)
         {
            
-                IEnumerable<Movie> resList = manager.GetMovies(5);
-                if (name != "All")
-                {
-                    resList = manager.GetMovies(name);
-                }
-                var resModel = builder.GetVMList(resList);
-                return PartialView(resModel);
-                        
+            IEnumerable<Movie> resList = manager.GetMovies(PageSize);
+            if (name != "All")
+            {
+                resList = manager.GetMovies(name, PageSize);
+            }
+            var resModel = builder.GetVMList(resList);
+            PagingInfo pagingInfo = new PagingInfo();
+            pagingInfo = PagingInfoHelper.PagingInfo(manager.GetMoviesCount(), PageSize, page);
+            MoviesListVM movieModelList = new MoviesListVM();
+            movieModelList = MovieListHelper.MoviesListVM(resModel, pagingInfo);
+            return PartialView(movieModelList);         
         }
+
         public ActionResult Autocomplete(string query = "")
 
         {

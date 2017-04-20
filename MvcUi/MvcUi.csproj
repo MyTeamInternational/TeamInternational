@@ -180,6 +180,9 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\AutocompleteHelpers.cs" />
+    <Compile Include="Helpers\MovieListHelper.cs" />
+    <Compile Include="Helpers\PagingHelpers.cs" />
+    <Compile Include="Helpers\PagingInfoHelper.cs" />
     <Compile Include="Infrastructure\Auth\AuthHttpModule.cs" />
     <Compile Include="Infrastructure\Auth\CustomAuthentication.cs" />
     <Compile Include="Infrastructure\Auth\IAuthentication.cs" />

@@ -1,11 +1,13 @@
-﻿@using BLL.ViewModels.Movie
-@model IEnumerable<MovieModel>
-
-@foreach (MovieModel item in Model)
+﻿@model BLL.ViewModels.Movie.MoviesListVM
+@foreach (var item in Model.Movies)
 {
     <tr>
         <td class="item">
-                @item.Name
+            @item.Name
         </td>
     </tr>
 }
+
+<div class="pager">
+    @Html.PageLinks(Model.PagingInfo, x => Url.Action("Page2Data", new { page = x }))
+</div>

@@ -22,11 +22,16 @@ namespace BLL.Managers
         {
             this.work = work;
         }
-
-        public IEnumerable<Movie> GetMovies(string name)
+        public IEnumerable<Movie> GetMovies(string name, int PageSize)
         {
-            return work.Movies.Items.Where(e => e.Name.Contains(name)).Take(5);
+            return work.Movies.Items.Where(e => e.Name.Contains(name)).Take(PageSize);
         }
+
+        public int GetMoviesCount()
+        {
+            return work.Movies.Items.Count();
+        }
+
         private bool match(Movie e, string name)
         {
             return new Regex(string.Format(RegexPWordStartOnWord, name), RegexOptions.IgnoreCase).Match(e.Name).Success;
