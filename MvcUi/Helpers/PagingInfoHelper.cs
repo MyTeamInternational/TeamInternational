@@ -1,5 +1,4 @@
-﻿
-using BLL.ViewModels;
+﻿using MvcUi.Models;
 
 namespace MvcUi.Helpers
 {

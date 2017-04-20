@@ -1,4 +1,4 @@
-﻿using BLL.ViewModels;
+﻿using MvcUi.Models;
 using System;
 using System.Text;
 using System.Web.Mvc;

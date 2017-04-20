@@ -1,5 +1,5 @@
-﻿using BLL.ViewModels;
-using BLL.ViewModels.Movie;
+﻿using BLL.ViewModels.Movie;
+using MvcUi.Models;
 using System.Collections.Generic;
 
 namespace MvcUi.Helpers
