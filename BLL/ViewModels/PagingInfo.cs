@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-//куда лучше ложить PagingInfo и MovieListVM
-//в примере лежит в MvcUI
 
 namespace BLL.ViewModels
 {
@@ -20,3 +18,4 @@ namespace BLL.ViewModels
         }
     }
 }
+

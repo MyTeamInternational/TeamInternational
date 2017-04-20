@@ -12,3 +12,4 @@ namespace BLL.ViewModels.Movie
         public PagingInfo PagingInfo { get; set; }
     }
 }
+
