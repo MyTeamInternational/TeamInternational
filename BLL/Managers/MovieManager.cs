@@ -22,6 +22,7 @@ namespace BLL.Managers
         {
             this.work = work;
         }
+
         public IEnumerable<Movie> GetMovies(string name, int PageSize)
         {
             return work.Movies.Items.Where(e => e.Name.Contains(name)).Take(PageSize);

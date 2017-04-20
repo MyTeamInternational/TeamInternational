@@ -77,8 +77,8 @@
     <Compile Include="ViewModels\Account\RegisterModel.cs" />
     <Compile Include="ViewModels\Movie\MovieModel.cs" />
     <Compile Include="ViewModels\Movie\MoviesListVM.cs" />
-    <Compile Include="VMBuilders\MovieVMBuilder.cs" />
     <Compile Include="ViewModels\PagingInfo.cs" />
+    <Compile Include="VMBuilders\MovieVMBuilder.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CONSTANTS\CONSTANTS.csproj">

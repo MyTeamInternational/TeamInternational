@@ -11,6 +11,5 @@ namespace BLL.Abstract
         Movie GetMovie(int id);
         void Update(Movie movie);
         IDictionary<string, object> GetAutoCompliteFormat(string query);
-        int GetMoviesCount();
     }
 }
