@@ -1,6 +1,8 @@
 ﻿@model  MvcUi.Infrastructure.Auth.UserProvider
-@Model.Identity.Name
-@if (Model!=null)
+
+
+@if (Model != null)
 {
+    @Model.Identity.Name
     @Html.ActionLink("Выйти", "LogOut", CONSTANTS.Constans_Cinema.ACCOUNT_CONTROLLER)
 }

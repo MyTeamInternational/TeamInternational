@@ -122,13 +122,13 @@ namespace MvcUi.Controllers
             return RedirectToAction(Constans_Cinema.HOME_INDEX, Constans_Cinema.HOME_CONTROLLER);
         }
         [UrlAction]
-        public ActionResult UserName()
+        public PartialViewResult UserName()
         {
             if (User.Identity.IsAuthenticated)
             {
-                return PartialView(Constans_Cinema.ACCOUNT_CONTROLLER+"\\"+Constans_Cinema.ACCOUNT_USERNAME,User);
+                return PartialView(User);
             }
-            return View();
+            return PartialView();
         }
         public ActionResult ConfirmEmail(string Token, string Email)
         {

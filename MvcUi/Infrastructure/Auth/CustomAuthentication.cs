@@ -40,6 +40,14 @@ namespace MvcUi.Infrastructure.Auth
             {
                 CreateCookie(userName, isPersistent);
             }
+            
+            HttpCookie authCookies = HttpContext.Response.Cookies.Get(cookieName);
+            if (authCookies != null && !string.IsNullOrEmpty(authCookies.Value))
+
+            {
+                var ticket = FormsAuthentication.Decrypt(authCookies.Value);
+                _currentUser = new UserProvider(ticket.Name, work.Users);
+            }
             return retUser;
         }
 
@@ -75,6 +83,12 @@ namespace MvcUi.Infrastructure.Auth
             };
 
             HttpContext.Response.Cookies.Set(AuthCookie);
+            if (CurrentUser.Identity.IsAuthenticated)
+            {
+
+                FLow.StatusFlow = MyStatusFlow.Registred;
+
+            }
             FLow.StatusFlow = MyStatusFlow.Registred;
 
         }
@@ -87,6 +101,7 @@ namespace MvcUi.Infrastructure.Auth
                 httpCookie.Value = string.Empty;
                 FLow.StatusFlow = MyStatusFlow.Not_Registred;
             }
+
         }
         private IPrincipal _currentUser;
 
