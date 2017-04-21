@@ -13,3 +13,5 @@
 /Business.Tests/Properties
 /CONSTANTS/obj
 /CONSTANTS/bin
+/.vs
+/MvcUi/Content/logs
