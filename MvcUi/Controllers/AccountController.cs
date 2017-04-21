@@ -116,8 +116,6 @@ namespace MvcUi.Controllers
         [UrlAction]
         public ActionResult LogOut()
         {
-            //    FormsAuthentication.SignOut();
-            //    HomeController.FLow.StatusFlow = MyStatusFlow.Not_Registred;
             Auth.LogOut();
             return RedirectToAction(Constans_Cinema.HOME_INDEX, Constans_Cinema.HOME_CONTROLLER);
         }
@@ -140,6 +138,7 @@ namespace MvcUi.Controllers
                 {
                     user.ConfirmedEmail = true;
                     accountManager.UpdateUser(user);
+                    Auth.Login(user.Name);
                     FormsAuthentication.SetAuthCookie(user.Name, true);
                     TempData["messageEmail"] = "Успешно подтвержден имейл";
                     FLow.StatusFlow = MyStatusFlow.Registred;

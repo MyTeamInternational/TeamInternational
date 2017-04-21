@@ -24,40 +24,19 @@
 @using MvcUi.Helpers
 @using (Ajax.BeginForm(ajaxOpt))
 {
-    @Html.AutocompleteFor(name: "name", actionName: "Autocomplete", controllerName: "Movie")
-
+    @Html.AutocompleteFor(name: "name", actionName: "Autocomplete", controllerName: CONSTANTS.Constans_Cinema.MOVIE_CONTROLLER)
     <p><input type="submit" value="Найти" /></p>
 }
 
+@section Scripts {
 @Scripts.Render("~/Scripts/jquery")
 @Scripts.Render("~/Scripts/jquery.unobtrusive-ajax.min.js")
-
-<script type="text/javascript">
-
-    $(document).ready(function () {
-            
-        $('*[data-autocomplete-url]')
-            .each(function () {
-                $(this).autocomplete(
-                    {
-                        serviceUrl: $(this).data('autocomplete-url'),
-                    });
-                $(this).autocomplete().disable();
-                $(this).keyup(function () {
-                    if (this.value.length > 2) {
-
-                        $(this).autocomplete().enable();
-                    } else {
-                        $(this).autocomplete().disable();
-                    }
-                });
-            });
-    });
-</script>
+@Scripts.Render("~/bundles/autocomplite")
+}
 <hr />
 @using (Html.BeginForm("Create", "Movie", FormMethod.Post))
 {
-    <p>Input name of movie: </p>
+    <p>Форма для нового фильма</p>
     @Html.TextBox("Name", "Input name")
     <p>Input release year:</p>
     @Html.TextBox("ReleaseYear", "Input year")

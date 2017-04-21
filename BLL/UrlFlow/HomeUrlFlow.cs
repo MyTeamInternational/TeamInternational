@@ -33,9 +33,6 @@ namespace BLL.UrlFlow
         }
         public string GetRedirect()
         {
-            var ss = this.CanUseAction.FirstOrDefault((KeyValuePair<string, bool> v) => v.Value == true).Key;
-
-            //Home мне не нравиться
             return "/" + Constans_Cinema.HOME_CONTROLLER + "/" + this.CanUseAction.FirstOrDefault((KeyValuePair<string, bool> v) => v.Value == true).Key;
         }
         public MyStatusFlow StatusFlow  {get; set;}

@@ -38,6 +38,7 @@ namespace MvcUi.Controllers
         [UrlAction]
         public ActionResult Page2(string name = "All")
         {
+            urlFlow.StatusFlow=MyStatusFlow.Registred;
             return View((object)name);
          }
 
@@ -95,6 +96,7 @@ namespace MvcUi.Controllers
         {
             pictureManager.CreatePictures(movie.ID, files);
             movieManager.Update(movie);
+            urlFlow.StatusFlow = MyStatusFlow.Smile;
             return RedirectToAction(Constans_Cinema.LAST_PAGE_INDEX, Constans_Cinema.LAST_PAGE_CONTROLLER);
         }
 
@@ -105,13 +107,6 @@ namespace MvcUi.Controllers
             //giud field for image -> wallpers
             //pagination ->masha 
             ////autocomptlite->pauluxxx
-            //bool go = User.Identity.IsAuthenticated;
-            //if (action == Constans_Cinema.ACCOUNT_LOGOUT)
-            //{
-            //    go = !User.Identity.IsAuthenticated;
-            //}
-            //HomeController.FLow.StatusFlow = (go) ? MyStatusFlow.Registred : MyStatusFlow.Not_Registred;
-
             return FLow.CanGo(action);
         }
 

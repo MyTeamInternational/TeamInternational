@@ -17,6 +17,7 @@ namespace MvcUi
                         "~/Scripts/modernizr-*"));
 
             bundles.Add(new ScriptBundle("~/bundles/autocomplite").Include(
+                        "~/Scripts/jquery.autocomplete.min.js",
                         "~/Scripts/autocomplite.js"));
            
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(

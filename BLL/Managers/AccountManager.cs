@@ -40,9 +40,8 @@ namespace BLL.Managers
         {
             if (work.Users.Items.Select(e => (e.Name == input || e.Email == input) && e.Password == password).Count(e => e == true) > 1)
             {
-                throw new NotSupportedException();//when two equals user finded
+                throw new NotSupportedException();
             }
-            //does not recorgonize sql to 
             return work.Users.Items.FirstOrDefault(e => ((e.Name == input || e.Email == input) && e.Password == password));//can throw an Exeprion if in db will ne 2 same users it is incorrect 
         }
         public User GetUser(string input)
