@@ -30,7 +30,7 @@ namespace TeamProject.DAL.Repositories
             => db.Users.Remove(user);
 
         public User Login(string userName, string password)
-        => db.Users.FirstOrDefault(e=>e.Name==userName&&e.Password==password);
+        => db.Users.FirstOrDefault(e => e.Name == userName && e.Password == password);
 
         public IEnumerable<User> GetAll()
             => db.Users.ToList();
@@ -45,6 +45,8 @@ namespace TeamProject.DAL.Repositories
             => db.Users.SingleOrDefault(user => user.Email == mail);
 
         public User GetByEmailAndPassword(string input, string password)
-            => db.Users.SingleOrDefault(e=> (e.Name == input || e.Email == input) && e.Password == password);
+        {
+            return db.Users.SingleOrDefault(e => (e.Name == input || e.Email == input) && e.Password == password);
+        }
     }
 }

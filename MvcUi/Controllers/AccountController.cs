@@ -8,6 +8,7 @@ using TeamProject.DAL.Entities;
 using System.Linq;
 using CONSTANTS;
 using MvcUi.Infrastructure.Auth;
+using BLL.Helpers;
 
 namespace MvcUi.Controllers
 {
@@ -40,11 +41,11 @@ namespace MvcUi.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = Auth.Login(model.Name, model.Password, false);
+                var user = Auth.Login(model.Name, EnscriptDescriptHeiper.Encrypt(model.Password,"hello"),false);
                 //User user = accountManager.GetUser(model.Name);
                 if (user != null)
                 {
-                    if (accountManager.CheckUserPassword(user, model.Password))
+                    if (accountManager.CheckUserPassword(user, EnscriptDescriptHeiper.Encrypt(model.Password, "hello")))
                     {
                         if (user.ConfirmedEmail)
                         {
@@ -138,8 +139,7 @@ namespace MvcUi.Controllers
                 {
                     user.ConfirmedEmail = true;
                     accountManager.UpdateUser(user);
-                    Auth.Login(user.Name);
-                    FormsAuthentication.SetAuthCookie(user.Name, true);
+                    Auth.Login(user.Name,user.Password,false);
                     TempData["messageEmail"] = "Успешно подтвержден имейл";
                     FLow.StatusFlow = MyStatusFlow.Registred;
                     return View(Constans_Cinema.ACCOUNT_CONFIRM);

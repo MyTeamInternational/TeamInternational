@@ -11,6 +11,7 @@ using System.Web.Security;
 using MvcUi.Controllers;
 using CONSTANTS;
 using BLL.Abstract;
+using BLL.Helpers;
 
 namespace MvcUi.Infrastructure.Auth
 {
@@ -27,7 +28,6 @@ namespace MvcUi.Infrastructure.Auth
 
         [Inject]
         ICinemaWork work;
-       
 
         public CustomAuthentication(ICinemaWork work,IHomeUrlFlow flow) { this.work = work;
             this.urlFlow = flow; }
@@ -36,11 +36,10 @@ namespace MvcUi.Infrastructure.Auth
         public User Login(string userName, string Password, bool isPersistent)
         {
             User retUser = work.Users.GetByEmailAndPassword(userName,Password);
-            if (retUser != null)
+            if (retUser != null&&retUser.ConfirmedEmail)
             {
                 CreateCookie(userName, isPersistent);
             }
-            
             HttpCookie authCookies = HttpContext.Response.Cookies.Get(cookieName);
             if (authCookies != null && !string.IsNullOrEmpty(authCookies.Value))
 

@@ -8,37 +8,65 @@
         Url = Url.Action("Page2Data")
     };
 }
-<h2>Page2</h2>
-<h3>5 Movies:</h3>
-<table>
-    <thead>
-        <tr>
-            <th>Name</th>
-        </tr>
-    </thead>
-    <tbody class="movies5" id="tableBody">
-        @Html.Action("Page2Data", new { name = Model })
-    </tbody>
-</table>
-<hr />
-@using MvcUi.Helpers
-@using (Ajax.BeginForm(ajaxOpt))
-{
-    @Html.AutocompleteFor(name: "name", actionName: "Autocomplete", controllerName: CONSTANTS.Constans_Cinema.MOVIE_CONTROLLER)
-    <p><input type="submit" value="Найти" /></p>
-}
+<div class="row">
+    <div class="col-lg-12">
+        <h1>Page2</h1>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-6">
+        <div class="row">
+            <div class="col-lg-3">
+                <h3> Фильмы:</h3>
+            </div>
+            <div class="col-lg-8 down">
+                @using MvcUi.Helpers
+                @using (Ajax.BeginForm(ajaxOpt))
+                {
+                    <div class="row vertical-align">
+                        <div class="col-lg-6">
+                            @Html.AutocompleteFor(name: "name", actionName: "Autocomplete", controllerName: CONSTANTS.Constans_Cinema.MOVIE_CONTROLLER)
+                        </div>
+                        <div class="col-lg-2 pull-left">
+                            <input class="btn btn-sm btn-success" type="submit" value="Найти" />
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
 
-@section Scripts {
-@Scripts.Render("~/Scripts/jquery")
-@Scripts.Render("~/Scripts/jquery.unobtrusive-ajax.min.js")
-@Scripts.Render("~/bundles/autocomplite")
-}
+    </div>
+</div>
 <hr />
-@using (Html.BeginForm("Create", "Movie", FormMethod.Post))
-{
-    <p>Форма для нового фильма</p>
-    @Html.TextBox("Name", "Input name")
-    <p>Input release year:</p>
-    @Html.TextBox("ReleaseYear", "Input year")
-    <p><input type="submit" value="Создать" /></p>
+<div class="row">
+    <div class="col-lg-8">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th width="30%">Название</th>
+                    <th width="15%">Возрастное ограничение</th>
+                    <th width="15%">Год выпуска</th>
+                    <th width="40%">Фото</th>
+                </tr>
+            </thead>
+            <tbody class="movies5" id="tableBody">
+                @Html.Action("Page2Data", new { name = Model })
+            </tbody>
+        </table>
+    </div>
+    <div class="col-lg-3 table-bordered">
+        @using (Html.BeginForm("Create", "Movie", FormMethod.Post))
+        {
+            <p>Форма для нового фильма: </p>
+            <p><b>Название фильма</b> </p>
+                    @Html.TextBox("Name", "Название")
+                    <input type="submit" class="btn btn-sm" value="Создать" />
+        }
+    </div>
+</div>
+<hr />
+@section Scripts {
+    @Scripts.Render("~/Scripts/jquery")
+    @Scripts.Render("~/Scripts/jquery.unobtrusive-ajax.min.js")
+    @Scripts.Render("~/bundles/autocomplite")
 }

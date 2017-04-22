@@ -3,10 +3,17 @@
 
 @foreach (MovieModel item in Model)
 {
-    <tr>
-        <td class="item">
-                @item.Name
+    <tr class="movieItem">
+        <td>
+            @item.Name
         </td>
+        <td>
+            @item.AgeLimit
+        </td>
+        <td>
+            @item.ReleaseYear
+        </td>
+
 
         <!--
         <td class="item">
@@ -14,7 +21,7 @@
             {
                 <img src="Url.Content(item.ImagePath)" />
             }
-        </td> 
+        </td>
         -->
     </tr>
 }

@@ -11,8 +11,10 @@
 </head>
 <body>
     <div class="container">
-        <div class="navbar-header navbar-right">
-            @{Html.RenderAction(CONSTANTS.Constans_Cinema.ACCOUNT_USERNAME, CONSTANTS.Constans_Cinema.ACCOUNT_CONTROLLER);}
+        <div class="row">
+            <div class="navbar-header col-lg-12 pull-right">
+                @{Html.RenderAction(CONSTANTS.Constans_Cinema.ACCOUNT_USERNAME, CONSTANTS.Constans_Cinema.ACCOUNT_CONTROLLER);}
+            </div>
         </div>
         <div class="body-content">
             @RenderBody()

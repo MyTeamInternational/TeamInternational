@@ -26,6 +26,7 @@ namespace BLL.Managers
         {
             foreach (var file in files)
             {
+
                 if (CheckFile(file))
                 {
                     var picture = work.Pictures.Create(new Picture() { MovieID = movieID });
@@ -41,7 +42,9 @@ namespace BLL.Managers
                 {
                     // What should we do ?? Throw exception or log record ?
                     // We should create custom exception for invalid extensions.
-                    throw new Exception("Invalid extension");
+                    //pauluxx
+                    //what should we do when user dont want to uplode any?-> image give him a hint on frontend server have to do his work with out any problem
+                   // throw new Exception("Invalid extension");
                 }
             }
         }
@@ -66,7 +69,7 @@ namespace BLL.Managers
         public string GetPicture(int id)
         {
             return $"../Images/{id}";
-        } 
+        }
 
     }
 }
